@@ -1,0 +1,951 @@
+{% extends "hpp/base.html" %}
+{% load tethys_gizmos %}
+{% load static %}
+
+
+{% block header_buttons %}
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
+    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+  </div>
+{% endblock %}
+
+{% block app_navigation_items %}
+
+  <li class="title">App Navigation</li>
+  <li {% if request.path == '/apps/hpp/' %} class="active" {% endif %}><a href="{% url 'hpp:home' %}">Home</a></li>
+  <li {% if 'zone-construction' in request.path  %} class="active" {% endif %}><a href="{% url 'hpp:zone-construction' %}">Risk Zone Construction Tool</a></li>
+  <li {% if 'storm-sewer-performance' in request.path  %} class="active" {% endif %}><a href="{% url 'hpp:storm-sewer-performance' %}">Storm Sewer Performance Tool</a></li>
+  <li {% if 'infrastructure-risk' in request.path  %} class="active" {% endif %}><a href="{% url 'hpp:infrastructure-risk' %}">Infrastructure Risk Tool</a></li>
+  <li {% if 'aggregated-risk' in request.path  %} class="active" {% endif %}><a href="{% url 'hpp:aggregated-risk' %}">Aggregated Risk Tool</a></li>
+
+  <li class="title">Add Custom File</li>
+  <div class="custom-file-input-elements">
+      <label for="custom-file-name-input">Specify Common File Name</label>
+      <br>
+      <input class="custom-file-name-input" id="custom-file-name-input" type="text">
+      <br>
+      {% gizmo add_custom_file_button %}
+      <!--<button id="add-custom-file" style="float:right; margin-top:10px; width:40%; height:25px;">Add File</button>-->
+  </div>
+{% endblock %}
+
+{% block app_content %}
+  <h1>Select Criteria for Risk Analysis</h1>
+
+            <label class="control-label" for="zone-shp-upload-input">Select Zone Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
+            <br>
+            <input id="zone-shp-upload-input" class="shp-upload-input" name="zone-shp-upload-input" style="display:inline-block;" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+
+            <div id="zoneid-select" style="display:inline-block;">
+            <label for="zone-field-select-0" style="padding-right:5px;">Zone ID Field:</label>
+              <select id="zone-field-select-0">
+                <option value="">Select Field</option>
+              </select>
+            </div>
+          <br><br>
+          <div id="zone-check" class="check">
+              <input class="checkbox-input" onclick="hideShow('zone-checkbox')" value="zone-file-inputs" id="zone-checkbox" type="checkbox">
+              <label class="container" for="zone-checkbox">Get Criteria from Zone File Fields</label>
+          </div>
+          <div id="zone-file-inputs" class="zone-file-inputs">
+              <div class="column-one-zone">
+                  <label class="num-fields-lable" for="zone-file-num-fields"># of fields:</label>
+                  <select id="zone-file-num-fields" class="num-fields-dropdown" name="zone-file-num-fields">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                  </select>
+                  <br><br>
+              </div>
+              <div class="column-two-zone">
+                  <p>Specify the following parameters for mapping each field:</p>
+                  <div id="zone-field-1" class="criteria-inputs">
+                      <label for="zone-criteria-name-1" class="criteria-name-input-label">1.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-1" class="criteria-name-input" name="zone-criteria-name-1">
+
+
+                      <select id="zone-field-select-1" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-1">
+                      <label for="zone-add-subweights-checkbox-1" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-1" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-1" name="zone-agg-method-select-1">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-1" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-1">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-2" class="criteria-inputs">
+                      <label for="zone-criteria-name-2" class="criteria-name-input-label">2.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-2" class="criteria-name-input" name="zone-criteria-name-2">
+
+
+                      <select id="zone-field-select-2" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-2">
+                      <label for="zone-add-subweights-checkbox-2" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-2" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-2" name="zone-agg-method-select-2">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-2" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-2">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-3" class="criteria-inputs">
+                      <label for="zone-criteria-name-3" class="criteria-name-input-label">3.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-3" class="criteria-name-input" name="zone-criteria-name-3">
+
+
+                      <select id="zone-field-select-3" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-3">
+                      <label for="zone-add-subweights-checkbox-3" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-3" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-3" name="zone-agg-method-select-3">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-3" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-3">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-4" class="criteria-inputs">
+                      <label for="zone-criteria-name-4" class="criteria-name-input-label">4.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-4" class="criteria-name-input" name="zone-criteria-name-4">
+
+
+                      <select id="zone-field-select-4" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-4">
+                      <label for="zone-add-subweights-checkbox-4" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-4" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-4" name="zone-agg-method-select-4">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-4" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-4">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-5" class="criteria-inputs">
+                      <label for="zone-criteria-name-5" class="criteria-name-input-label">5.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-5" class="criteria-name-input" name="zone-criteria-name-5">
+
+
+                      <select id="zone-field-select-5" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-5">
+                      <label for="zone-add-subweights-checkbox-5" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-5" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-5" name="zone-agg-method-select-5">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-5" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-5">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-6" class="criteria-inputs">
+                      <label for="zone-criteria-name-6" class="criteria-name-input-label">6.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-6" class="criteria-name-input" name="zone-criteria-name-6">
+
+
+                      <select id="zone-field-select-6" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-6">
+                      <label for="zone-add-subweights-checkbox-6" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-6" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-6" name="zone-agg-method-select-6">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-6" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-6">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-7" class="criteria-inputs">
+                      <label for="zone-criteria-name-7" class="criteria-name-input-label">7.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-7" class="criteria-name-input" name="zone-criteria-name-7">
+
+
+                      <select id="zone-field-select-7" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-7">
+                      <label for="zone-add-subweights-checkbox-7" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-7" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-7" name="zone-agg-method-select-7">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-7" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-7">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-8" class="criteria-inputs">
+                      <label for="zone-criteria-name-8" class="criteria-name-input-label">8.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-8" class="criteria-name-input" name="zone-criteria-name-8">
+
+
+                      <select id="zone-field-select-8" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-8">
+                      <label for="zone-add-subweights-checkbox-8" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-8" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-8" name="zone-agg-method-select-8">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-8" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-8">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-9" class="criteria-inputs">
+                      <label for="zone-criteria-name-9" class="criteria-name-input-label">9.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-9" class="criteria-name-input" name="zone-criteria-name-9">
+
+
+                      <select id="zone-field-select-9" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-9">
+                      <label for="zone-add-subweights-checkbox-9" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-9" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-9" name="zone-agg-method-select-9">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-9" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-9">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+                  <div id="zone-field-10" class="criteria-inputs">
+                      <label for="zone-criteria-name-10" class="criteria-name-input-label">10.) Criteria Name:</label>
+                      <input type="text" id="zone-criteria-name-10" class="criteria-name-input" name="zone-criteria-name-10">
+
+
+                      <select id="zone-field-select-10" class="select-field-dropdown">
+                          <option value="">Select Field</option>
+                      </select>
+
+                      <input type="checkbox" class="subweight-checkbox" id="zone-add-subweights-checkbox-10">
+                      <label for="zone-add-subweights-checkbox-10" class="subweight-input-label">Add Subweights</label>
+                      <label for="zone-agg-method-select-10" class="agg-input-label">Aggregation Method:</label>
+                      <select id="zone-agg-method-select-10" name="zone-agg-method-select-10">
+                          <option value="sum">Sum</option>
+                          <option value="mean">Mean</option>
+                          <option value="count">Count</option>
+                          <option value="max">Max</option>
+                          <option value="min">Min</option>
+                      </select>
+                      <label for="zone-lof-or-cof-select-10" class="ctype-input-label">Criteria Type:</label>
+                      <select id="zone-lof-or-cof-select-10">
+                          <option value="lof">LOF</option>
+                          <option value="cof">COF</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+
+
+
+
+          <div id="subcat-check" class="check">
+            <input class="checkbox-input" id="subcat-checkbox" type="checkbox" onclick="hideShow('subcat-checkbox')" value="subcat-file-inputs">
+            <label class="container" for="subcat-checkbox">Subcatchment Data File</label>
+          </div>
+
+
+          <div id="subcat-file-inputs">
+             <!--<div class="form-group subcatchment_shp_upload">-->
+                    <label class="control-label" for="subcatchment-shp-upload-input">Select Subcatchment Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
+                    <input id="subcatchment-shp-upload-input" class="shp-upload-input" name="subcatchment-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+             <!--</div>-->
+             <div class="column-split">
+                 <div class="column-one-zone">
+
+                      <label class="num-fields-lable" for="subcat-file-num-fields"># of fields:</label>
+                      <select id="subcat-file-num-fields" class="num-fields-dropdown" name="subcat-file-num-fields">
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                      </select>
+                     <br><br>
+                 </div>
+                 <div class="column-two-zone">
+                      <p>Specify the following parameters for mapping each field:</p>
+                      <div id="subcat-field-1" class="criteria-inputs">
+                          <label for="subcat-criteria-name-1" class="criteria-name-input-label">1.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-1" class="criteria-name-input" name="subcat-criteria-name-1">
+
+
+                          <select id="subcat-field-select-1" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-1">
+                          <label for="subcat-add-subweights-checkbox-1" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-1" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-1" name="subcat-agg-method-select-1">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-1" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-1">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-2" class="criteria-inputs">
+                          <label for="subcat-criteria-name-2" class="criteria-name-input-label">2.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-2" class="criteria-name-input" name="subcat-criteria-name-2">
+
+
+                          <select id="subcat-field-select-2" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-2">
+                          <label for="subcat-add-subweights-checkbox-2" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-2" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-2" name="subcat-agg-method-select-2">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-2" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-2">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-3" class="criteria-inputs">
+                          <label for="subcat-criteria-name-3" class="criteria-name-input-label">3.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-3" class="criteria-name-input" name="subcat-criteria-name-3">
+
+
+                          <select id="subcat-field-select-3" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-3">
+                          <label for="subcat-add-subweights-checkbox-3" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-3" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-3" name="subcat-agg-method-select-3">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-3" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-3">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-4" class="criteria-inputs">
+                          <label for="subcat-criteria-name-4" class="criteria-name-input-label">4.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-4" class="criteria-name-input" name="criteria-name-4">
+
+
+                          <select id="subcat-field-select-4" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-4">
+                          <label for="subcat-add-subweights-checkbox-4" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-4" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-4" name="subcat-agg-method-select-4">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-4" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-4">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-5" class="criteria-inputs">
+                          <label for="subcat-criteria-name-5" class="criteria-name-input-label">5.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-5" class="criteria-name-input" name="subcat-criteria-name-5">
+
+
+                          <select id="subcat-field-select-5" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-5">
+                          <label for="subcat-add-subweights-checkbox-5" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-5" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-5" name="subcat-agg-method-select-5">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-5" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-5">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-6" class="criteria-inputs">
+                          <label for="subcat-criteria-name-6" class="criteria-name-input-label">6.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-6" class="criteria-name-input" name="subcat-criteria-name-6">
+
+
+                          <select id="subcat-field-select-6" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-6">
+                          <label for="subcat-add-subweights-checkbox-6" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-6" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-6" name="subcat-agg-method-select-6">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-6" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-6">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-7" class="criteria-inputs">
+                          <label for="subcat-criteria-name-7" class="criteria-name-input-label">7.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-7" class="criteria-name-input" name="subcat-criteria-name-7">
+
+
+                          <select id="subcat-field-select-7" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-7">
+                          <label for="subcat-add-subweights-checkbox-7" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-7" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-7" name="subcat-agg-method-select-7">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-7" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-7">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-8" class="criteria-inputs">
+                          <label for="subcat-criteria-name-8" class="criteria-name-input-label">8.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-8" class="criteria-name-input" name="subcat-criteria-name-8">
+
+
+                          <select id="subcat-field-select-8" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-8">
+                          <label for="subcat-add-subweights-checkbox-8" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-8" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-8" name="subcat-agg-method-select-8">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-8" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-8">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-9" class="criteria-inputs">
+                          <label for="subcat-criteria-name-9" class="criteria-name-input-label">9.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-9" class="criteria-name-input" name="subcat-criteria-name-9">
+
+
+                          <select id="subcat-field-select-9" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-9">
+                          <label for="subcat-add-subweights-checkbox-9" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-9" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-9" name="subcat-agg-method-select-9">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-9" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-9">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                      <div id="subcat-field-10" class="criteria-inputs">
+                          <label for="subcat-criteria-name-10" class="criteria-name-input-label">10.) Criteria Name:</label>
+                          <input type="text" id="subcat-criteria-name-10" class="criteria-name-input" name="subcat-criteria-name-10">
+
+
+                          <select id="subcat-field-select-10" class="select-field-dropdown">
+                              <option value="">Select Field</option>
+                          </select>
+
+                          <input type="checkbox" class="subweight-checkbox" id="subcat-add-subweights-checkbox-10">
+                          <label for="subcat-add-subweights-checkbox-1" class="subweight-input-label">Add Subweights</label>
+                          <label for="subcat-agg-method-select-10" class="agg-input-label">Aggregation Method:</label>
+                          <select id="subcat-agg-method-select-10" name="subcat-agg-method-select-10">
+                              <option value="sum">Sum</option>
+                              <option value="mean">Mean</option>
+                              <option value="count">Count</option>
+                              <option value="max">Max</option>
+                              <option value="min">Min</option>
+                          </select>
+                          <label for="subcat-lof-or-cof-select-10" class="ctype-input-label">Criteria Type:</label>
+                          <select id="subcat-lof-or-cof-select-10">
+                              <option value="lof">LOF</option>
+                              <option value="cof">COF</option>
+                          </select>
+                      </div>
+                 </div>
+             </div>
+
+          </div>
+
+          <div id="pipe-check" class="check">
+              <input type="checkbox" class="checkbox-input" id="pipe-checkbox" onclick="hideShow('pipe-checkbox')" value="pipe-file-inputs">
+              <label class="container">Storm Sewer Pipe Data File </label>
+          </div>
+          <!--<label class="container">Storm Sewer Pipe Data File-->
+            <!--<input class="checkbox-input" id="pipe-checkbox" type="checkbox" onclick="hideShow('pipe-checkbox')" value="pipe-file-inputs">-->
+            <!--<span class="checkmark"></span>-->
+          <!--</label>-->
+          <!---->
+
+          <div id="pipe-file-inputs">
+            <div class="form-group pipe_shp_upload">
+                  <label class="control-label" for="pipe-shp-upload-input">Select Pipe Performance Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
+                  <input id="pipe-shp-upload-input" name="pipe-shp-upload-input" onchange="uploadFile('#pipe-shp-upload-input','pipe_file','pipe-dep-ovr-diam-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+
+                    <select id="pipe-dep-ovr-diam-field">
+                        <option value="">Select Field</option>
+                    </select>
+                </div>
+          </div>
+          <!--<label class="container">Area of Erosion Risk-->
+            <!--<input class="checkbox-input" id="erosion-checkbox" type="checkbox" checked="">-->
+            <!--<span class="checkmark"></span>-->
+          <!--</label>-->
+            <!--<div class="form-group erosion_rst_upload">-->
+                  <!--<label class="control-label" for="erosion-rst-upload-input">Select Erosion Raster Files to Upload (.tif, .ovr, and .prj Required):</label>-->
+                  <!--<input id="erosion-rst-upload-input" name="erosion-rst-upload-input" onchange="uploadFileNoFields('#erosion-rst-upload-input','erosion_file');" oninput="this.className = ''" type="file" accept=".tif,.ovr,.prj" multiple>-->
+
+            <!--</div>-->
+
+
+
+          <div id="bld-check" class="check">
+              <input class="checkbox-input" id="bld-checkbox" type="checkbox" onclick="hideShow('bld-checkbox')" value="bld-file-inputs">
+              <label class="container">Building Data File</label>
+          </div>
+          <div id="bld-file-inputs">
+            <div class="form-group bld_shp_upload">
+                  <label class="control-label" for="bld-shp-upload-input">Select Building Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
+                  <input id="bld-shp-upload-input" name="bld-shp-upload-input" onchange="uploadFile('#bld-shp-upload-input','bld_value_file','bld-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+
+                    <select id="bld-value-field">
+                        <option value="">Select Field</option>
+                    </select>
+
+                </div>
+          </div>
+
+
+          <!--<label class="container">Critical Facilities Impacted-->
+            <!--<input class="checkbox-input" id="crit-facilities-checkbox" type="checkbox" checked="">-->
+            <!--<span class="checkmark"></span>-->
+          <!--</label>-->
+            <!--<div class="form-group crit_shp_upload">-->
+                  <!--<label class="control-label" for="crit-shp-upload-input">Select Critical Facilities Impacted Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+                  <!--<input id="crit-shp-upload-input" name="crit-shp-upload-input" onchange="uploadFileNoFields('#crit-shp-upload-input','crit_file');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+
+                    <!--<select id="crit-facilities-field">-->
+                        <!--<option value="">Select Field</option>-->
+                    <!--</select>-->
+
+            <!--</div>-->
+
+
+          <!--<label class="container">Residential Flooding-->
+            <!--<input class="checkbox-input" id="res-flooding-checkbox" type="checkbox" checked="">-->
+            <!--<span class="checkmark"></span>-->
+          <!--</label>-->
+            <!--<div class="form-group res_shp_upload">-->
+                  <!--<label class="control-label" for="res-shp-upload-input">Select Residential Flooding Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+                  <!--<input id="res-shp-upload-input" name="res-shp-upload-input" onchange="uploadFile('#res-shp-upload-input','res_file','res-flooding-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+
+                    <!--<select id="res-flooding-field">-->
+                        <!--<option value="">Select Field</option>-->
+                    <!--</select>-->
+
+            <!--</div>-->
+
+
+          <div id="street-check" class="check">
+              <input class="checkbox-input" id="street-checkbox" type="checkbox" onclick="hideShow('street-checkbox')" value="street-file-inputs">
+              <label class="container">Street Data File</label>
+          </div>
+          <div id="street-file-inputs">
+            <div class="form-group street_shp_upload">
+                  <label class="control-label" for="street-shp-upload-input">Select Street Flood Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
+                  <input id="street-shp-upload-input" name="street-shp-upload-input" onchange="uploadFile('#street-shp-upload-input','street_file','street-flood-depth-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+
+                    <select id="street-flood-depth-field">
+                        <option value="">Select Field</option>
+                    </select>
+
+            </div>
+          </div>
+
+
+          <div id="jct-check" class="check">
+              <input class="checkbox-input" id="jct-checkbox" type="checkbox" onclick="hideShow('jct-checkbox')" value="jct-file-inputs">
+              <label class="container">Storm Sewer Junction Data File</label>
+          </div>
+          <div id="jct-file-inputs">
+            <div class="form-group junction_shp_upload">
+                  <label class="control-label" for="junction-shp-upload-input">Select Junction Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
+                  <input id="junction-shp-upload-input" name="junction-shp-upload-input" onchange="uploadFile('#junction-shp-upload-input','jct_file','jct-flood-depth-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+
+                    <select id="jct-flood-depth-field">
+                        <option value="">Select Field</option>
+                    </select>
+
+            </div>
+          </div>
+
+          <!--<label class="container">Junction Surcharge Duration-->
+            <!--<input class="checkbox-input" id="jct-surch-checkbox" type="checkbox" checked="">-->
+            <!--<span class="checkmark"></span>-->
+          <!--</label>-->
+            <!--<div class="form-group junction_two_shp_upload">-->
+                  <!--<label class="control-label" for="junction-two-shp-upload-input">Select Junction Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+                  <!--<input id="junction-two-shp-upload-input" name="junction-two-shp-upload-input" onchange="uploadFile('#junction-two-shp-upload-input','jct_two_file','jct-surcharge-duration-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+
+                    <!--<select id="jct-surcharge-duration-field">-->
+                        <!--<option value="">Select Field</option>-->
+                    <!--</select>-->
+            <!--</div>-->
+
+          <div id="ls-check" class="check">
+              <input class="checkbox-input" id="ls-checkbox" type="checkbox" onclick="hideShow('ls-checkbox')" value="ls-file-inputs">
+              <label class="container">Lift Station Data File</label>
+          </div>
+          <div id="ls-file-inputs">
+            <div class="form-group ls_shp_upload">
+                  <label class="control-label" for="ls-shp-upload-input">Select Lift Station Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
+                  <input id="ls-shp-upload-input" name="ls-shp-upload-input" onchange="uploadFileNoFields('#ls-shp-upload-input','ls_file');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+
+            </div>
+          </div>
+
+
+          <div id="1custom-check" class="check">
+              <input class="checkbox-input" id="1custom-checkbox" type="checkbox" onclick="hideShow('1custom-checkbox')" value="1custom-file-inputs" >
+              <label class="container">Custom 1 File</label>
+          </div>
+          <div id="1custom-file-inputs">
+              <div class="form-group 1custom_shp_upload">
+                  <label class="control-label" for="1custom-shp-upload-input">Select Lift Station Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
+                  <input id="1custom-shp-upload-input" name="1custom-shp-upload-input" onchange="uploadFileNoFields('#1custom-shp-upload-input','1custom_file');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+
+              </div>
+          </div>
+          <br>
+
+          <!--<span></span><div id="showzonemap"></div>-->
+          <!--<div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">-->
+            <!--<button id="init-risk-analysis" class="submit-button" data-toggle="modal" data-target="#upload-modal"><span>Initiate Risk Analysis </span>-->
+            <!--&lt;!&ndash;<a data-toggle="modal" data-target="#upload-modal"><span class="glyphicon glyphicon-question-sign"></span></a>&ndash;&gt;-->
+            <!--</button>-->
+            {% gizmo data_submit_button %}
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{# Use the after_app_content block for modals #}
+{% block after_app_content %}
+  <!-- Example Modal -->
+  <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5 class="modal-title" id="help-modal-label">Example Modal</h5>
+        </div>
+        <div class="modal-body">
+          <p>You can add custom buttons to the app header using the <code>header_buttons</code> block. Use anchor/link tags for the button and wrap it in a div with the class <code>header-button</code>. For buttons with the gliphyicons, add the <code>glyphicon-button</code> class as well.</p>
+          <p>Ever have trouble using a modal in a Tethys app? Use the <code>after_app_content</code> block for modal content to allow them to function properly. See: <a href="https://getbootstrap.com/javascript/#modals">Bootstrap Modals</a></p>
+          <p>Add tooltips to any element by adding the <code>data-toggle</code>, <code>data-placement</code>, and <code>title</code> attributes to the button. See: <a href="https://getbootstrap.com/javascript/#tooltips">Bootstrap Tooltips</a></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Shapefile Upload and Field Mapping Form -->
+  <!--<div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="upload-modal-label">-->
+    <!--<div class="modal-dialog" role="document">-->
+      <!--<div class="modal-content">-->
+        <!--<div class="modal-header">-->
+          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+          <!--<h5 class="modal-title" id="upload-modal-label">Shapefile Upload and Field Mapping Form</h5>-->
+        <!--</div>-->
+        <!--<div class="modal-body">-->
+
+         <!--<form id="regForm" action="">-->
+
+  <!--&lt;!&ndash; One "tab" for each step in the form: &ndash;&gt;-->
+          <!--<div class="tab">Zone Data:-->
+            <!--<div class="usarea-select" style="width:200px;">-->
+              <!--<select id="zone-usarea-field">-->
+
+              <!--</select>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--<div class="tab">Pipe Data Mapping:-->
+            <!--<div class="form-group pipe_shp_upload">-->
+              <!--<label class="control-label" for="pipe-shp-upload-input">Select Pipe Performance Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+              <!--<input id="pipe-shp-upload-input" name="pipe-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+                <!--&lt;!&ndash;<button id="pipe-upload-button"><span>Upload</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+
+
+                <!--<select id="pipe-dep-ovr-diam-field">-->
+
+                <!--</select>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--<div class="tab">Erosion Risk Data Mapping:-->
+            <!--<div class="form-group erosion_rst_upload">-->
+              <!--<label class="control-label" for="erosion_rst-upload-input">Select Erosion Raster Files to Upload (.tif, .ovr, and .prj Required):</label>-->
+              <!--<input id="erosion_rst-upload-input" name="erosion_rst-upload-input" oninput="this.className = ''" type="file" accept=".tif,.ovr,.prj" multiple>-->
+
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--<div class="tab">Building Value Data Mapping:-->
+            <!--<div class="form-group bld_shp_upload">-->
+              <!--<label class="control-label" for="bld-shp-upload-input">Select Building Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+              <!--<input id="bld-shp-upload-input" name="bld-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+
+                <!--<select id="bld-value-field">-->
+
+                <!--</select>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--<div class="tab">Residential Flooding and Critical Facilities Data Mapping:-->
+            <!--<div class="form-group res_crit_shp_upload">-->
+              <!--<label class="control-label" for="res-crit-shp-upload-input">Select Critical Facilities Impacted Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+              <!--<input id="res-crit-shp-upload-input" name="res-crit-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+
+                <!--<select id="res-flooding-field">-->
+
+                <!--</select>-->
+                <!--<select id="crit-facilities-field">-->
+
+                <!--</select>-->
+
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--<div class="tab">Street Flooding Data Mapping:-->
+            <!--<div class="form-group street_shp_upload">-->
+              <!--<label class="control-label" for="street-shp-upload-input">Select Street Flood Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+              <!--<input id="street-shp-upload-input" name="street-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+
+                <!--<select id="street-flood-depth-field">-->
+
+                <!--</select>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--<div class="tab">Junction Data Mapping:-->
+            <!--<div class="form-group junction_shp_upload">-->
+              <!--<label class="control-label" for="junction-shp-upload-input">Select Junction Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+              <!--<input id="junction-shp-upload-input" name="junction-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+
+                <!--<select id="jct-flood-depth-field">-->
+
+                <!--</select>-->
+                <!--<select id="jct-surcharge-duration-field">-->
+
+                <!--</select>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--<div class="tab">Lift Station Data Mapping:-->
+            <!--<div class="form-group ls_shp_upload">-->
+              <!--<label class="control-label" for="ls-shp-upload-input">Select Lift Station Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>-->
+              <!--<input id="ls-shp-upload-input" name="ls-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>-->
+
+            <!--</div>-->
+          <!--</div>-->
+
+         <!--</form>-->
+
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+          <!--<div style="overflow:auto;">-->
+            <!--<div style="float:right;">-->
+              <!--<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>-->
+              <!--<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--&lt;!&ndash; Circles which indicates the steps of the form: &ndash;&gt;-->
+          <!--<div style="text-align:center;margin-top:40px;">-->
+            <!--<span class="step" id="zone-data-form"></span>-->
+            <!--<span class="step" id="pipe-data-form"></span>-->
+            <!--<span class="step" id="erosion-data-form"></span>-->
+            <!--<span class="step" id="building-value-data-form"></span>-->
+            <!--<span class="step" id="residential-data-form"></span>-->
+            <!--<span class="step" id="street-data-form"></span>-->
+            <!--<span class="step" id="junction-data-form"></span>-->
+            <!--<span class="step" id="ls-data-form"></span>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+{% endblock %}
+
+{% block app_actions %}
+
+{% endblock %}
+
+{% block content_dependent_styles %}
+  {{ block.super }}
+  <link href="{% static 'hpp/css/main.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <!--<link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css" />-->
+  <!--<script src="https://js.arcgis.com/4.15/"></script>-->
+  <script src="{% static 'hpp/js/aggregated_risk.js' %}" type="text/javascript"></script>
+{% endblock %}

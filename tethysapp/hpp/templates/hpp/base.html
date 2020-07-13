@@ -1,0 +1,39 @@
+{% extends "tethys_apps/app_base.html" %}
+
+{% load static %}
+
+{% block title %}{{ tethys_app.name }}{% endblock %}
+
+{% block app_icon %}
+  {# The path you provided in your app.py is accessible through the tethys_app.icon context variable #}
+  <img src="{% if 'http' in tethys_app.icon %}{{ tethys_app.icon }}{% else %}{% static tethys_app.icon %}{% endif %}" />
+{% endblock %}
+
+{# The name you provided in your app.py is accessible through the tethys_app.name context variable #}
+{% block app_title %}{{ tethys_app.name }}{% endblock %}
+
+{% block app_navigation_items %}
+  <li class="title">App Navigation</li>
+  <li {% if request.path == '/apps/hpp/' %} class="active" {% endif %}><a href="{% url 'hpp:home' %}">Home</a></li>
+  <li {% if 'zone-construction' in request.path  %} class="active" {% endif %}><a href="{% url 'hpp:zone-construction' %}">Risk Zone Construction Tool</a></li>
+  <li {% if 'storm-sewer-performance' in request.path  %} class="active" {% endif %}><a href="{% url 'hpp:storm-sewer-performance' %}">Storm Sewer Performance Tool</a></li>
+  <li {% if 'infrastructure-risk' in request.path  %} class="active" {% endif %}><a href="{% url 'hpp:infrastructure-risk' %}">Infrastructure Risk Tool</a></li>
+  <li {% if 'aggregated-risk' in request.path  %} class="active" {% endif %}><a href="{% url 'hpp:aggregated-risk' %}">Aggregated Risk Tool</a></li>
+
+{% endblock %}
+
+{% block app_content %}
+{% endblock %}
+
+{% block app_actions %}
+{% endblock %}
+
+{% block content_dependent_styles %}
+  {{ block.super }}
+  <link href="{% static 'hpp/css/main.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static 'hpp/js/main.js' %}" type="text/javascript"></script>
+{% endblock %}
