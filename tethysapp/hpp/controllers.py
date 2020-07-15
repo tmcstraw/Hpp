@@ -127,7 +127,7 @@ def aggregated_risk(request):
         style='success',
         attributes={
             'id': 'add-custom-file-button',
-            # 'onclick': 'executeSpatialJoins()',
+            'onclick': 'hideShowCustomCheck()',
         }
     )
     data_submit_button = Button(

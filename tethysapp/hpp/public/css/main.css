@@ -35,7 +35,47 @@
   float:right;
   margin-top:10px;
 }
+.column-subweight-split:after {
+  content: "";
+  display: table;
+  clear: both;
+  overflow-x:auto;
+}
+.num-subweights-select{
+  display:inline-block;
+  white-space=nowrap;
+  }
 
+.column-one-subweight{
+  float: left;
+  width: 25%;
+  padding: 10px;
+  overflow-x:auto;
+  overflow-y:auto;
+  }
+
+.column-two-subweight{
+  float: left;
+  width: 25%;
+  padding: 10px;
+  overflow-x:auto;
+  overflow-y:auto;
+  }
+.column-three-subweight{
+  float: left;
+  width: 25%;
+  padding: 10px;
+  overflow-x:auto;
+  overflow-y:auto;
+  }
+
+.column-four-subweight{
+  float: left;
+  width: 25%;
+  padding: 10px;
+  overflow-x:auto;
+  overflow-y:auto;
+  }
 
 .shp-upload-input {
   border: none;
@@ -46,7 +86,14 @@
 }
 .check {
   white-space:nowrap;
+  width:90%;
   }
+
+.custom-check {
+  white-space:nowrap;
+
+  }
+
 /*display zone file inputs */
 .zone-file-inputs:after {
   content: "";

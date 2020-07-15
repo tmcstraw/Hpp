@@ -18,10 +18,19 @@ function uncheckAll() {
         };
 
 };
+function logAndClearSubweightData(){
 
 
-function showUploadModal (){
-    $("#upload-modal").modal('show');
+        }
+
+function showSubweightsModal (){
+
+//        if(input_element.checked == true){
+//            document.getElementById(inputValue).style.display ="block";
+//        };
+
+        $("#subweights-modal").modal('show');
+
 
 };
 
@@ -34,8 +43,77 @@ function hideShow(checkbox_id){
             document.getElementById(inputValue).style.display ="block";
         }
         else if(input_element.checked == false){
-            document.getElementById(inputValue).style.display ="none"};
+            document.getElementById(inputValue).style.display ="none"
+        };
     };
+
+function clearFile (checkbox_id,close_id){
+        document.getElementById(checkbox_id).style.display ="none";
+        document.getElementById(close_id).style.display ="none";
+
+        var n = checkbox_id.slice(0,(checkbox_id.search("-")));
+        $('#'+n+'-shp-upload-input').val('');
+        $('#'+n+'-file-num-fields').val(0);
+        checkNumberOfFields(n+'-file-num-fields',n+'-field-');
+
+
+
+        for (var i = 1; i < 11; i++) {
+            $('#'+n+'-criteria-name-'+i).val('');
+            $('#'+n+'-field-select-'+i).val('');
+            if (document.getElementById(n+'-add-subweights-checkbox-'+i).checked ==true){
+                document.getElementById(n+'-add-subweights-checkbox-'+i).checked =false;
+            };
+
+            $('#'+n+'-agg-method-select-'+i).val('sum');
+            $('#'+n+'-lof-or-cof-select-'+i).val('lof');
+        };
+        if (document.getElementById(n+'-checkbox').checked ==true){
+                document.getElementById(n+'-checkbox').checked =false;
+        };
+        document.getElementById(n+'-file-inputs').style.display = 'none';
+
+};
+
+function hideShowCustomCheck(){
+        var custom_file_name = $('#custom-file-name-input').val();
+        console.log(custom_file_name);
+        var inputs = document.querySelectorAll('.custom-check');
+        for (var i = 0; i < inputs.length; i++) {
+
+           if(inputs[i].style.display == "block"){continue};
+
+
+           if(inputs[i].style.display == "none"){
+           var checkbox_label = document.getElementById(inputs[i].id+'box-label');
+           console.log(inputs[i].id+'-label');
+
+           checkbox_label.innerHTML = custom_file_name;
+           var id_str = inputs[i].id;
+           var n = id_str.slice(0,(id_str.search("-")));
+           document.getElementById(n+'-close').style.display = "block";
+
+           inputs[i].style.display = "block";
+
+
+
+           break};
+
+//
+
+
+        };
+
+    };
+
+function hideCustomFields() {
+        var inputs = document.querySelectorAll('.custom-check');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].style.display = 'none';
+
+        };
+
+};
 
 function hideShowFieldDivs(div_id){
 
@@ -210,7 +288,15 @@ function executeSpatialJoins(){
         var inputs = document.querySelectorAll('.checkbox-input');
         console.log(inputs);
         var data = new FormData();
-        for (var i = 0; i <= inputs.length; i++) {
+        var file_names = [];
+        var criteria_name_array =[];
+        var field_name_array = [];
+        var aggregation_method_array = [];
+        var criteria_type_array = [];
+
+
+        for (var i = 0; i < inputs.length; i++) {
+            console.log('i is '+i)
 
             if(inputs[i].checked == true){
                 var id_str = inputs[i].id;
@@ -220,7 +306,9 @@ function executeSpatialJoins(){
                 var file_name = n +'_file';
                 console.log(file_name);
 
-                data.append(n+"_file_name",file_name);
+                file_names.push(file_name);
+
+                console.log(file_names)
 
 
                 var file_inputs_div = document.getElementById(n+'-file-inputs');
@@ -228,17 +316,30 @@ function executeSpatialJoins(){
                 field_dropdowns = file_inputs_div.getElementsByClassName("criteria-inputs");
 //                field_dropdowns = Array.prototype.slice.call(field_dropdowns);
 //                console.log(field_dropdowns);
-                for (var i = 0; i < (field_dropdowns.length); i++) {
+                for (var j = 0; j < (field_dropdowns.length); j++) {
 
-                    if(field_dropdowns[i].style.display == 'block'){
+                    if(field_dropdowns[j].style.display == 'block'){
 //                        console.log(field_dropdowns[i]);
-                        console.log(n+"-criteria-name-"+(i+1))
-                        var criteria_name_id = document.getElementById(n+"-criteria-name-"+(i+1));
-                        var field_name_id = document.getElementById(n+"-field-select-"+(i+1));
-                        var subweights_checkbox_id = document.getElementById(n+"-add-subweights-checkbox-"+(i+1));
-                        var aggregation_method_id = document.getElementById(n+"-agg-method-select-"+(i+1));
-                        var criteria_type_id = document.getElementById(n+"-lof-or-cof-select-"+(i+1));
+                        console.log(n+"-criteria-name-"+(j+1))
+                        var criteria_name_id = document.getElementById(n+"-criteria-name-"+(j+1));
+                        var field_name_id = document.getElementById(n+"-field-select-"+(j+1));
+                        var subweights_checkbox_id = document.getElementById(n+"-add-subweights-checkbox-"+(j+1));
+                        var aggregation_method_id = document.getElementById(n+"-agg-method-select-"+(j+1));
+                        var criteria_type_id = document.getElementById(n+"-lof-or-cof-select-"+(j+1));
                         console.log(field_name_id.value);
+
+                        criteria_name_array.push(n+'_'+criteria_name_id.value);
+                        field_name_array.push(n+'_'+field_name_id.value);
+                        aggregation_method_array.push(n+'_'+aggregation_method_id.value);
+                        criteria_type_array.push(n+'_'+criteria_type_id.value);
+
+
+
+//                        ****subweight data function
+
+
+
+
 //                        data.append(n+"_criteria_name_"+(i+1),criteria_name_id.value);
 //                        data.append(n+"_field_name_"+(i+1),field_name_id.value);
 //                        data.append(n+"_agg_method_"+(i+1),aggregation_method_id.value);
@@ -251,32 +352,28 @@ function executeSpatialJoins(){
                 };
             };
         };
+        console.log(criteria_name_array);
+        console.log(field_name_array);
+        console.log(aggregation_method_array);
+        console.log(criteria_type_array);
+
+
+        data.append("file_names",file_names);
+        data.append("criteria_names",criteria_name_array);
+        data.append("field_names",field_name_array);
+        data.append("aggregation_methods",aggregation_method_array);
+        data.append("criteria_types",criteria_type_array);
+
+
+//                        zone_spatial_join_process(data, file_name, "#data-submit-button")
+
 
 
 };
 
 
 
-//        var usarea_check = document.getElementById("usarea-checkbox").checked
-//        var ro_cap_check = document.getElementById("ro-cap-checkbox").checked
-//        var d_ov_d_check = document.getElementById("pipe-checkbox").checked
-//        var erosion_check = document.getElementById("erosion-checkbox").checked
-//        var bld_value_check = document.getElementById("bld-val-checkbox").checked
-//        var crit_facility_check = document.getElementById("crit-facilities-checkbox").checked
-//        var res_fld_check = document.getElementById("res-flooding-checkbox").checked
-//        var street_fld_check = document.getElementById("street-checkbox").checked
-//        var jct_dep_check = document.getElementById("jct-dep-checkbox").checked
-//        var jct_surch_check = document.getElementById("jct-surch-checkbox").checked
-//        var ls_check = document.getElementById("ls-checkbox").checked
-//
-//        if(usarea_check == true){
-//        }
-//
-//        if (jct_dep_check == true){
-//        console.log(jct_dep_check)}
-//        else if (jct_dep_check == false){
-//        console.log('its definitely '+jct_dep_check)}
-//}
+
 
 execute_spatial_join = function(file_name){
 
@@ -402,8 +499,26 @@ function file_upload_process(data,field_list) {
 
 $(function() {
     uncheckAll();
+    hideCustomFields();
+
+
+
+
     checkNumberOfFields('zone-file-num-fields','zone-field-');
     checkNumberOfFields('subcat-file-num-fields','subcat-field-');
+    checkNumberOfFields('pipe-file-num-fields','pipe-field-');
+    checkNumberOfFields('bld-file-num-fields','bld-field-');
+    checkNumberOfFields('street-file-num-fields','street-field-');
+    checkNumberOfFields('jct-file-num-fields','jct-field-');
+    checkNumberOfFields('ls-file-num-fields','ls-field-');
+    checkNumberOfFields('1custom-file-num-fields','1custom-field-');
+    checkNumberOfFields('2custom-file-num-fields','2custom-field-');
+    checkNumberOfFields('3custom-file-num-fields','3custom-field-');
+    checkNumberOfFields('4custom-file-num-fields','4custom-field-');
+    checkNumberOfFields('5custom-file-num-fields','5custom-field-');
+
+
+
 
     $('#zone-shp-upload-input').change(function(){
         uploadFile('#zone-shp-upload-input','zone_file');
@@ -418,4 +533,64 @@ $(function() {
     $('#subcat-file-num-fields').change(function(){
         checkNumberOfFields('subcat-file-num-fields','subcat-field-')
     });
-}); //do
+    $('#pipe-shp-upload-input').change(function(){
+        uploadFile('#pipe-shp-upload-input','pipe_file');
+    });
+    $('#pipe-file-num-fields').change(function(){
+        checkNumberOfFields('pipe-file-num-fields','pipe-field-')
+    });
+    $('#bld-shp-upload-input').change(function(){
+        uploadFile('#bld-shp-upload-input','bld_file');
+    });
+    $('#bld-file-num-fields').change(function(){
+        checkNumberOfFields('bld-file-num-fields','bld-field-')
+    });
+    $('#street-shp-upload-input').change(function(){
+        uploadFile('#street-shp-upload-input','street_file');
+    });
+    $('#street-file-num-fields').change(function(){
+        checkNumberOfFields('street-file-num-fields','street-field-')
+    });
+    $('#jct-shp-upload-input').change(function(){
+        uploadFile('#jct-shp-upload-input','jct_file');
+    });
+    $('#jct-file-num-fields').change(function(){
+        checkNumberOfFields('jct-file-num-fields','jct-field-')
+    });
+    $('#ls-shp-upload-input').change(function(){
+        uploadFile('#ls-shp-upload-input','ls_file');
+    });
+    $('#ls-file-num-fields').change(function(){
+        checkNumberOfFields('ls-file-num-fields','ls-field-')
+    });
+    $('#1custom-shp-upload-input').change(function(){
+        uploadFile('#1custom-shp-upload-input','1custom_file');
+    });
+    $('#1custom-file-num-fields').change(function(){
+        checkNumberOfFields('1custom-file-num-fields','1custom-field-')
+    });
+    $('#2custom-shp-upload-input').change(function(){
+        uploadFile('#2custom-shp-upload-input','2custom_file');
+    });
+    $('#2custom-file-num-fields').change(function(){
+        checkNumberOfFields('2custom-file-num-fields','2custom-field-')
+    });
+    $('#3custom-shp-upload-input').change(function(){
+        uploadFile('#3custom-shp-upload-input','3custom_file');
+    });
+    $('#3custom-file-num-fields').change(function(){
+        checkNumberOfFields('3custom-file-num-fields','3custom-field-')
+    });
+    $('#4custom-shp-upload-input').change(function(){
+        uploadFile('#4custom-shp-upload-input','4custom_file');
+    });
+    $('#4custom-file-num-fields').change(function(){
+        checkNumberOfFields('4custom-file-num-fields','4custom-field-')
+    });
+    $('#5custom-shp-upload-input').change(function(){
+        uploadFile('#5custom-shp-upload-input','5custom_file');
+    });
+    $('#5custom-file-num-fields').change(function(){
+        checkNumberOfFields('5custom-file-num-fields','5custom-field-')
+    });
+});
