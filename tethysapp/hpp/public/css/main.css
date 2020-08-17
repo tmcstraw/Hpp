@@ -45,7 +45,39 @@
   display:inline-block;
   white-space=nowrap;
   }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 
+}
+td, th {
+  border: 1px solid #000000;
+  text-align: left;
+  padding: 8px;
+  backgroundColor:white;
+}
+tr:nth-child(even) {
+
+}
+#page-two{
+  display:none;
+  }
+#col-one-zclass{
+  width:50%;
+  }
+#col-two-zclass{
+  width:50%;
+  }
+#page-three{
+  display:none;
+  }
+.zone-classifier-dropdown{
+  height:100%;
+  width:100%;
+  border:none;
+  background-color:transparent;
+  }
 .column-one-subweight{
   float: left;
   width: 25%;
@@ -109,9 +141,24 @@
   overflow-x:auto;
 }
 
+.column-zclass {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  border:1px solid #dddddd;
+  overflow-x:auto;
+  overflow-y:auto;
+  white-space: nowrap;
+  }
 
-
-
+.zone-classifier-breaks{
+  display:inline-block;
+  width:75px;
+  height:35px;
+  float:right;
+  margin:10px;
+  text-align:center;
+  }
 
 /* Style zone file columns */
 .column-one-zone {

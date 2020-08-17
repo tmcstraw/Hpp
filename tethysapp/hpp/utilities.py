@@ -13,6 +13,10 @@ def move_files(shapefile,file_name):
 
     SHP_DIR = os.path.join(SHP_DIR, '')
 
+    for file in os.listdir(SHP_DIR):
+        f_path = os.path.join(SHP_DIR, file)
+        os.remove(f_path)
+
     temp_dir = tempfile.mkdtemp()
     for f in shapefile:
         f_name = f.name
@@ -32,12 +36,18 @@ def move_files(shapefile,file_name):
             pol_shp = f_path
             pol_name = os.path.splitext(f_name)[0]
 
+    return_obj["success"]:"success"
 
+    return return_obj
 def move_files_get_fields(shapefile,file_name):
 
     SHP_DIR = '/Users/tmcstraw/tethysdev/tethysapp-hpp/tethysapp/hpp/workspaces/user_workspaces/'+file_name+'/'
 
     SHP_DIR = os.path.join(SHP_DIR, '')
+
+    for file in os.listdir(SHP_DIR):
+        f_path = os.path.join(SHP_DIR, file)
+        os.remove(f_path)
 
     field_list = []
     return_obj = {}
@@ -67,7 +77,7 @@ def move_files_get_fields(shapefile,file_name):
             for field in field_names:
                 field_list.append(field)
 
-                print(field_list)
+
 
 
 
@@ -75,7 +85,7 @@ def move_files_get_fields(shapefile,file_name):
     return_obj["field_names"] = field_list
     return_obj = json.dumps(return_obj)
 
-    print(return_obj)
+
 
     return return_obj
 

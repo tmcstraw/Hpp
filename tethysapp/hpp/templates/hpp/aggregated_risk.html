@@ -30,15 +30,22 @@
 {% endblock %}
 
 {% block app_content %}
-  <h1>Select Criteria for Risk Analysis</h1>
+    <div id="page-one">
+        <h1>Select Criteria for Risk Analysis</h1>
+
+            <label class="control-label" for="risk-analysis-name">Risk Scenario Name:</label>
+            <input type="text" id="risk-analysis-name" class="risk-analysis-name" name="risk-analysis-name" style="width:200px; height:25px;">
+            <br>
+            <br>
+
 
             <label class="control-label" for="zone-shp-upload-input">Select Zone Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
             <br>
             <input id="zone-shp-upload-input" class="shp-upload-input" name="zone-shp-upload-input" style="display:inline-block;" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
             <div id="zoneid-select" style="display:inline-block;">
-            <label for="zone-field-select-0" style="padding-right:5px;">Zone ID Field:</label>
-              <select id="zone-field-select-0">
+            <label for="zoneid-field-select" style="padding-right:5px;">Zone ID Field:</label>
+              <select id="zoneid-field-select">
                 <option value="">Select Field</option>
               </select>
             </div>
@@ -623,7 +630,7 @@
           <div id="pipe-file-inputs">
              <!--<div class="form-group subcatchment_shp_upload">-->
                     <label class="control-label" for="pipe-shp-upload-input">Select Pipe Performance Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="pipe-shp-upload-input" class="shp-upload-input" name="pipe-shp-upload-input" onchange="uploadFile('#pipe-shp-upload-input','pipe_file','pipe-dep-ovr-diam-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="pipe-shp-upload-input" class="shp-upload-input" name="pipe-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <!--</div>-->
              <div class="column-split">
@@ -926,7 +933,7 @@
 
           <div id="bld-file-inputs">
                     <label class="control-label" for="bld-shp-upload-input">Select Building Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="bld-shp-upload-input" class="shp-upload-input" name="bld-shp-upload-input" onchange="uploadFile('#bld-shp-upload-input','bld_file','bld-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="bld-shp-upload-input" class="shp-upload-input" name="bld-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -1243,7 +1250,7 @@
 
           <div id="street-file-inputs">
                     <label class="control-label" for="street-shp-upload-input">Select Street Flood Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="street-shp-upload-input" class="shp-upload-input" name="street-shp-upload-input" onchange="uploadFile('#street-shp-upload-input','street_value_file','street-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="street-shp-upload-input" class="shp-upload-input" name="street-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -1531,7 +1538,7 @@
 
           <div id="jct-file-inputs">
                     <label class="control-label" for="jct-shp-upload-input">Select Junction Flood Risk Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="jct-shp-upload-input" class="shp-upload-input" name="jct-shp-upload-input" onchange="uploadFile('#jct-shp-upload-input','jct_value_file','jct-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="jct-shp-upload-input" class="shp-upload-input" name="jct-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -1820,7 +1827,7 @@
 
           <div id="ls-file-inputs">
                     <label class="control-label" for="ls-shp-upload-input">Select Lift Station Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="ls-shp-upload-input" class="shp-upload-input" name="ls-shp-upload-input" onchange="uploadFile('#ls-shp-upload-input','ls_value_file','ls-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="ls-shp-upload-input" class="shp-upload-input" name="ls-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -2108,7 +2115,7 @@
 
           <div id="1custom-file-inputs">
                     <label class="control-label" for="1custom-shp-upload-input">Select 1Custom Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="1custom-shp-upload-input" class="shp-upload-input" name="1custom-shp-upload-input" onchange="uploadFile('#1custom-shp-upload-input','1custom_value_file','1custom-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="1custom-shp-upload-input" class="shp-upload-input" name="1custom-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -2396,7 +2403,7 @@
 
           <div id="2custom-file-inputs" class="custom-file">
                     <label class="control-label" for="2custom-shp-upload-input">Select 2Custom Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="2custom-shp-upload-input" class="shp-upload-input" name="2custom-shp-upload-input" onchange="uploadFile('#2custom-shp-upload-input','2custom_value_file','2custom-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="2custom-shp-upload-input" class="shp-upload-input" name="2custom-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -2686,7 +2693,7 @@
 
           <div id="3custom-file-inputs" class="custom-file">
                     <label class="control-label" for="3custom-shp-upload-input">Select 3custom Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="3custom-shp-upload-input" class="shp-upload-input" name="3custom-shp-upload-input" onchange="uploadFile('#3custom-shp-upload-input','3custom_value_file','3custom-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="3custom-shp-upload-input" class="shp-upload-input" name="3custom-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -2977,7 +2984,7 @@
 
           <div id="4custom-file-inputs" class="custom-file">
                     <label class="control-label" for="4custom-shp-upload-input">Select 4custom Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="4custom-shp-upload-input" class="shp-upload-input" name="4custom-shp-upload-input" onchange="uploadFile('#4custom-shp-upload-input','4custom_value_file','4custom-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="4custom-shp-upload-input" class="shp-upload-input" name="4custom-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -3265,7 +3272,7 @@
 
           <div id="5custom-file-inputs" class="custom-file">
                     <label class="control-label" for="5custom-shp-upload-input">Select 5custom Shapefile Files to Upload (.shp, .shx, .prj, and .dbf Required):</label>
-                    <input id="5custom-shp-upload-input" class="shp-upload-input" name="5custom-shp-upload-input" onchange="uploadFile('#5custom-shp-upload-input','5custom_value_file','5custom-value-field');" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
+                    <input id="5custom-shp-upload-input" class="shp-upload-input" name="5custom-shp-upload-input" oninput="this.className = ''" type="file" accept=".shp,.shx,.prj,.dbf" multiple>
 
              <div class="column-split">
                  <div class="column-one-zone">
@@ -3549,10 +3556,329 @@
             <!--&lt;!&ndash;<a data-toggle="modal" data-target="#upload-modal"><span class="glyphicon glyphicon-question-sign"></span></a>&ndash;&gt;-->
             <!--</button>-->
             {% gizmo data_submit_button %}
+    </div>
+
+    <div id="page-two">
+        <h1>Normalize Data by Assigning Risk Scores</h1>
+
+        <div class="table-overflow">
+            <table class="table table-striped">
+                <thead>
+                    <th>ID</th>
+                    <th>Criteria Name</th>
+                    <th>Original Field Name</th>
+                    <th>Assign Risk Scores</th>
+                    <th>Criteria Type</th>
+                    <th style="width:170px">Risk Weight %</th>
+
+                </thead>
+            <tbody>
+            {% for criteria in criteria_list %}
+                <tr>
+
+                    </td>
+                    <td class="risk-criteria-id">{{criteria.id}}</td>
+                    <td class="risk-criteria-name">{{criteria.criteria_name}}</td>
+                    <td class="risk-orig-field-name">{{criteria.field_name}}</td>
+                    <td class="risk-scores" id="{{criteria.criteria_name}}-risk-score"><li onclick="showRiskScoreModal(['{{criteria.criteria_name}}','{{criteria.id}}']);">Edit Risk Scores</li></td>
+                    <td class="risk-criteria-type">{{criteria.criteria_type}}</td>
+                    <td class="risk-weight-percent"><input type="text" id="{{criteria.criteria_name}}-risk-weight" value="{{criteria.criteria_weight}}" onchange="saveRiskWeightToDB(['{{criteria.criteria_name}}','{{criteria.id}}']);" class="risk-weight-value" name="{{criteria.criteria_name}}-risk-weight" style="width:100px"></td>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div id="page-three">
+        <h1>Specify Zone Classification Methods</h1>
+    <br>
+        <div class="table-overflow">
+            <table class="table table-striped">
+                <thead>
+                    <th></th>
+                    <th>LOF Very Low</th>
+                    <th>LOF Low</th>
+                    <th>LOF Medium</th>
+                    <th>LOF High</th>
+                    <th>LOF Very High</th>
+
+                </thead>
+            <tbody>
 
 
 
 
+                <tr>
+                    <td style="font-weight:bold">COF Very High</td>
+                    <td id="row1-col1"><select id="cof-very-high-1" class="zone-classifier-dropdown vl-lof" name="cof-very-high-1" style="">
+                            <option value="green-1" >Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3"selected>Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row1-col2"><select id="cof-very-high-2" class="zone-classifier-dropdown l-lof" name="cof-very-high-2" style="">
+                            <option value="green-1" >Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4" selected>High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row1-col3"><select id="cof-very-high-3" class="zone-classifier-dropdown m-lof" name="cof-very-high-3" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5" selected>Very High</option>
+                    </td>
+                    <td id="row1-col4"><select id="cof-very-high-4" class="zone-classifier-dropdown h-lof" name="cof-very-high-4" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2" >Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5" selected>Very High</option>
+                    </td>
+                    <td id="row1-col5"><select id="cof-very-high-5" class="zone-classifier-dropdown vh-lof" name="cof-very-high-5" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3" >Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5" selected>Very High</option>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold">COF High</td>
+                    <td id="row2-col1"><select id="cof-high-1" class="zone-classifier-dropdown vl-lof" name="cof-high-1" style="">
+                            <option value="green-1" >Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3"selected>Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row2-col2"><select id="cof-high-2" class="zone-classifier-dropdown l-lof" name="cof-high-2" style="">
+                            <option value="green-1" >Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3"selected>Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row2-col3"><select id="cof-high-3" class="zone-classifier-dropdown m-lof" name="cof-high-3" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2" >Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4" selected>High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row2-col4"><select id="cof-high-4" class="zone-classifier-dropdown h-lof" name="cof-high-4" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3" >Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5" selected>Very High</option>
+                    </td>
+                    <td id="row2-col5"><select id="cof-high-5" class="zone-classifier-dropdown vh-lof" name="cof-high-5" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4" >High</option>
+                            <option value="red-5" selected>Very High</option>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold">COF Medium</td>
+                    <td id="row3-col1"><select id="cof-med-1" class="zone-classifier-dropdown vl-lof" name="cof-med-1" style="">
+                            <option value="green-1" >Very Low</option>
+                            <option value="yellowgreen-2" selected>Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row3-col2"><select id="cof-med-2" class="zone-classifier-dropdown l-lof" name="cof-med-2" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2" >Low</option>
+                            <option value="yellow-3" selected>Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row3-col3"><select id="cof-med-3" class="zone-classifier-dropdown m-lof" name="cof-med-3" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3"selected>Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row3-col4"><select id="cof-med-4" class="zone-classifier-dropdown h-lof" name="cof-med-4" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4"selected>High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row3-col5"><select id="cof-med-5" class="zone-classifier-dropdown vh-lof" name="cof-med-5" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5" selected>Very High</option>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold">COF Low</td>
+                    <td id="row4-col1"><select id="cof-low-1" class="zone-classifier-dropdown vl-lof" name="cof-low-1" style="">
+                            <option value="green-1" selected>Very Low</option>
+                            <option value="yellowgreen-2" >Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row4-col2"><select id="cof-low-2" class="zone-classifier-dropdown l-lof" name="cof-low-2" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2" selected>Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row4-col3"><select id="cof-low-3" class="zone-classifier-dropdown m-lof" name="cof-low-3" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3" selected>Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row4-col4"><select id="cof-low-4" class="zone-classifier-dropdown h-lof" name="cof-low-4" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3" selected>Medium</option>
+                            <option value="orange-4" >High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row4-col5"><select id="cof-low-5" class="zone-classifier-dropdown vh-lof" name="cof-low-5" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4" selected>High</option>
+                            <option value="red-5" >Very High</option>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight:bold">COF Very Low</td>
+                    <td id="row5-col1"><select id="cof-very-low-1" class="zone-classifier-dropdown vl-lof" name="cof-very-low-1" style="width:100%; height:100%;">
+                            <option value="green-1"selected>Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4" >High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row5-col2"><select id="cof-very-low-2" class="zone-classifier-dropdown l-lof" name="cof-very-low-2" style="">
+                            <option value="green-1" selected>Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4" >High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row5-col3"><select id="cof-very-low-3" class="zone-classifier-dropdown m-lof" name="cof-very-low-3" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2" selected>Low</option>
+                            <option value="yellow-3">Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                    <td id="row5-col4"><select id="cof-very-low-4" class="zone-classifier-dropdown h-lof" name="cof-very-low-4" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3" selected>Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5" >Very High</option>
+                    </td>
+                    <td id="row5-col5"><select id="cof-very-low-5" class="zone-classifier-dropdown vh-lof" name="cof-very-low-5" style="">
+                            <option value="green-1">Very Low</option>
+                            <option value="yellowgreen-2">Low</option>
+                            <option value="yellow-3"selected>Medium</option>
+                            <option value="orange-4">High</option>
+                            <option value="red-5">Very High</option>
+                    </td>
+                </tr>
+
+
+            </tbody>
+            </table>
+        </div>
+        <div class="column-split" style="width:100%;">
+            <div class= "column-zclass">
+                <p>LOF Classification Breaks</p><br>
+                <div class="subcolumn1-zclass" style="float:left; width=50%;">
+
+                    <label for="lof-1" class="zcb-label">Very Low to Low Break</label><br><br><br>
+                    <label for="lof-2" class="zcb-label">Low to Medium Break</label><br><br><br>
+                    <label for="lof-3" class="zcb-label">Medium to High Break</label><br><br><br>
+                    <label for="lof-4" class="zcb-label">High to Very High Break</label><br><br><br>
+                </div>
+                <div class="subcolumn2-zclass" style="float:right; width=50%">
+                    <span style="float:right; margin-top:15px;font-size:18px">%</span><input type="number" id="lof-1" class="zone-classifier-breaks" value="20"><br><br><br>
+                    <span style="float:right; margin-top:15px;font-size:18px">%</span><input type="number" id="lof-2" class="zone-classifier-breaks" value="40"><br><br><br>
+                    <span style="float:right; margin-top:15px;font-size:18px">%</span><input type="number" id="lof-3" class="zone-classifier-breaks" value="60"><br><br><br>
+                    <span style="float:right; margin-top:15px;font-size:18px">%</span><input type="number" id="lof-4" class="zone-classifier-breaks" value="80"><br><br><br>
+
+                </div>
+            </div>
+
+            <div class= "column-zclass">
+                <p>COF Classification Breaks</p><br>
+                <div class="subcolumn1-zclass" style="float:left; width=50%;">
+
+                    <label for="cof-1" class="zcb-label">Very Low to Low Break</label><br><br><br>
+                    <label for="cof-2" class="zcb-label">Low to Medium Break</label><br><br><br>
+                    <label for="cof-3" class="zcb-label">Medium to High Break</label><br><br><br>
+                    <label for="cof-4" class="zcb-label">High to Very High Break</label><br><br><br>
+                </div>
+                <div class="subcolumn2-zclass" style="float:right; width=50%">
+                    <span style="float:right; margin-top:15px;font-size:18px">%</span><input type="number" id="cof-1" class="zone-classifier-breaks" value="20"><br><br><br>
+                    <span style="float:right; margin-top:15px;font-size:18px">%</span><input type="number" id="cof-2" class="zone-classifier-breaks" value="40"><br><br><br>
+                    <span style="float:right; margin-top:15px;font-size:18px">%</span><input type="number" id="cof-3" class="zone-classifier-breaks" value="60"><br><br><br>
+                    <span style="float:right; margin-top:15px;font-size:18px">%</span><input type="number" id="cof-4" class="zone-classifier-breaks" value="80"><br><br><br>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--<div id="page-four">-->
+        <!--<h1>Normalize Data by Assigning Risk Scores</h1>-->
+
+        <!--<div class="table-overflow">-->
+            <!--<table class="table table-striped">-->
+                <!---->
+            <!--{% for criteria in criteria_list %}-->
+                <!--<thead>-->
+                    <!--<th>{{criteria.criteria_name}}</th>-->
+                <!--{% endfor %}-->
+                    <!--<th>Total LOF Score</th>-->
+                    <!--<th>Total COF Score</th>-->
+                    <!--<th>Total Risk Score</th>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                    <!--<tr>-->
+    <!---->
+                        <!--</td>-->
+                        <!--<td class="risk-criteria-id">{{criteria.id}}</td>-->
+                        <!--<td class="risk-criteria-name">{{criteria.criteria_name}}</td>-->
+                        <!--<td class="risk-orig-field-name">{{criteria.field_name}}</td>-->
+                        <!--<td class="risk-scores" id="{{criteria.criteria_name}}-risk-score"><li onclick="showRiskScoreModal(['{{criteria.criteria_name}}','{{criteria.id}}']);">Edit Risk Scores</li></td>-->
+                        <!--<td class="risk-criteria-type">{{criteria.criteria_type}}</td>-->
+                        <!--<td class="risk-weight-percent"><input type="text" id="{{criteria.criteria_name}}-risk-weight" value="{{criteria.criteria_weight}}" onchange="saveRiskWeightToDB(['{{criteria.criteria_name}}','{{criteria.id}}']);" class="risk-weight-value" name="{{criteria.criteria_name}}-risk-weight" style="width:100px"></td>-->
+    <!---->
+                        <!--</td>-->
+                    <!--</tr>-->
+            <!---->
+            <!--</tbody>-->
+            <!--</table>-->
+        <!--</div>-->
+
+    <!--</div>-->
 
 
 
@@ -3566,23 +3892,23 @@
 {% block after_app_content %}
   <!-- Example Modal -->
     <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h5 class="modal-title" id="help-modal-label">Example Modal</h5>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h5 class="modal-title" id="help-modal-label">Example Modal</h5>
+            </div>
+            <div class="modal-body">
+              <p>You can add custom buttons to the app header using the <code>header_buttons</code> block. Use anchor/link tags for the button and wrap it in a div with the class <code>header-button</code>. For buttons with the gliphyicons, add the <code>glyphicon-button</code> class as well.</p>
+              <p>Ever have trouble using a modal in a Tethys app? Use the <code>after_app_content</code> block for modal content to allow them to function properly. See: <a href="https://getbootstrap.com/javascript/#modals">Bootstrap Modals</a></p>
+              <p>Add tooltips to any element by adding the <code>data-toggle</code>, <code>data-placement</code>, and <code>title</code> attributes to the button. See: <a href="https://getbootstrap.com/javascript/#tooltips">Bootstrap Tooltips</a></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          <p>You can add custom buttons to the app header using the <code>header_buttons</code> block. Use anchor/link tags for the button and wrap it in a div with the class <code>header-button</code>. For buttons with the gliphyicons, add the <code>glyphicon-button</code> class as well.</p>
-          <p>Ever have trouble using a modal in a Tethys app? Use the <code>after_app_content</code> block for modal content to allow them to function properly. See: <a href="https://getbootstrap.com/javascript/#modals">Bootstrap Modals</a></p>
-          <p>Add tooltips to any element by adding the <code>data-toggle</code>, <code>data-placement</code>, and <code>title</code> attributes to the button. See: <a href="https://getbootstrap.com/javascript/#tooltips">Bootstrap Tooltips</a></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-        </div>
-      </div>
-    </div>
     </div>
 
     <div class="modal fade" id="subweights-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
@@ -3619,7 +3945,7 @@
                     </div>
                     <div class="column-four-subweight">
                     <p># in Range </p>
-                        <input type="text" id="num-in-range-1" class="num-in-range" name="num-in-range-1">
+                        <input type="text" id="snum-in-range-1" class="num-in-range" name="num-in-range-1">
 
                     </div>
                 </div>
@@ -3630,12 +3956,172 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
+
+    <div class="modal fade" id="edit-risk-score-modal" value="" tabindex="-1" role="dialog" aria-labelledby="edit-risk-score-modal-label">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h5 class="modal-title" id="edit-risk-score-modal-label">Edit Risk Scores</h5>
+            </div>
+            <div class="modal-body">
+                <p style="display:inline-block; margin-right:20px">Select the number of classes</p><select id="num-risk-classes-select" style="display:inline-block; width:8%">
+
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+
+                </select>
+                <table>
+                  <tr>
+                    <th>Lower</th>
+                    <th>Upper</th>
+                    <th># of Data Points in Range</th>
+                    <th>Risk Score</th>
+
+                  </tr>
+                  <tr id="risk-class-1" class="risk-class-row">
+                    <td id="min-class-1">
+                        <input type="text" id="min-1-text-input" class="min-risk-input" name="min-1-text-input">
+                    </td>
+                    <td id="max-class-1">
+                        <input type="text" id="max-1-text-input" class="max-risk-input" name="max-1-text-input">
+                    </td>
+                    <td id="num-in-range-1"></td>
+                    <td id="risk-score-class-1">
+                        <select id="risk-score-1-select" class="risk-score-select">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                  </tr>
+                  <tr id="risk-class-2" class="risk-class-row">
+                    <td id="min-class-2">
+                        <input type="text" id="min-2-text-input" class="min-risk-input" name="min-2-text-input">
+                    </td>
+                    <td id="max-class-2">
+                        <input type="text" id="max-2-text-input" class="max-risk-input" name="max-2-text-input">
+                    </td>
+                    <td id="num-in-range-2"></td>
+                    <td id="risk-score-class-2">
+                        <select id="risk-score-2-select" class="risk-score-select">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                  </tr>
+                  <tr id="risk-class-3" class="risk-class-row">
+                    <td id="min-class-3">
+                        <input type="text" id="min-3-text-input" class="min-risk-input" name="min-3-text-input">
+                    </td>
+                    <td id="max-class-3">
+                        <input type="text" id="max-3-text-input" class="max-risk-input" name="max-3-text-input">
+                    </td>
+                    <td id="num-in-range-3"></td>
+                    <td id="risk-score-class-3">
+                        <select id="risk-score-3-select" class="risk-score-select">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                  </tr>
+                  <tr id="risk-class-4" class="risk-class-row">
+                    <td id="min-class-4">
+                        <input type="text" id="min-4-text-input" class="min-risk-input" name="min-4-text-input">
+                    </td>
+                    <td id="max-class-4">
+                        <input type="text" id="max-4-text-input" class="max-risk-input" name="max-4-text-input">
+                    </td>
+                    <td id="num-in-range-4"></td>
+                    <td id="risk-score-class-4">
+                        <select id="risk-score-4-select" class="risk-score-select">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                  </tr>
+                  <tr id="risk-class-5" class="risk-class-row">
+                    <td id="min-class-5">
+                        <input type="text" id="min-5-text-input" class="min-risk-input" name="min-5-text-input">
+                    </td>
+                    <td id="max-class-5">
+                        <input type="text" id="max-5-text-input" class="max-risk-input" name="max-5-text-input">
+                    </td>
+                    <td id="num-in-range-5"></td>
+                    <td id="risk-score-class-5">
+                        <select id="risk-score-5-select" class="risk-score-select">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                  </tr>
+
+
+                </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" id="risk-score-submit" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+    </div>
 
 
 {% endblock %}
 
 {% block app_actions %}
+    {% gizmo apply_risk_scores_button %}
+    {% gizmo classify_zones_button %}
+    {% gizmo previous_button %}
+    {% gizmo next_button %}
 
 {% endblock %}
 

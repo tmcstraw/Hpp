@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from tethys_sdk.permissions import login_required
 from tethys_sdk.gizmos import Button
+from .app import *
+from .model import *
 
-@login_required()
+# @login_required()
 def home(request):
     """
     Controller for the app home page.
     """
+    # init_primary_db()
+
     save_button = Button(
         display_text='',
         name='save-button',
@@ -141,13 +145,74 @@ def aggregated_risk(request):
         }
     )
 
+    # initialize session
+    Session = Hpp.get_persistent_store_database('primary_db', as_sessionmaker=True)
+    session = Session()
+
+    # Query DB for data store types
+    criteria_list = session.query(Criteria) \
+                  .order_by(Criteria.id) \
+                  .all()
 
 
+
+    previous_button = Button(
+        display_text='Previous',
+        name='previous-button',
+        attributes={
+            'data-toggle': 'tooltip',
+            'data-placement': 'top',
+            'title': 'Previous',
+            'onclick':'hidePageTwoShowOne()'
+        }
+    )
+
+    next_button = Button(
+        display_text='Next',
+        name='next-button',
+        attributes={
+            'data-toggle': 'tooltip',
+            'data-placement': 'top',
+            'title': 'Next'
+        }
+    )
+
+    apply_risk_scores_button = Button(
+        display_text='Apply',
+        name='apply-risk-scores-button',
+        attributes={
+            'data-toggle': 'tooltip',
+            'data-placement': 'top',
+            'title': 'Previous',
+            'onclick': 'applyRiskScores()'
+        }
+    )
+
+    classify_zones_button = Button(
+        display_text='Classify Zones',
+        name='classify_zones-button',
+        attributes={
+            'data-toggle': 'tooltip',
+            'data-placement': 'top',
+            'title': 'Previous',
+            'onclick': 'saveZoneClassTableToDB()'
+        }
+    )
 
     context = {'data_submit_button': data_submit_button,
                'add_custom_file_button': add_custom_file_button,
+               'apply_risk_scores_button': apply_risk_scores_button,
+               'initial_page': 0,
+               'previous_button': previous_button,
+               'classify_zones_button': classify_zones_button,
+               'next_button': next_button,
+               'criteria_list': criteria_list,
 
     }
 
+    session.close()
 
     return render(request, 'hpp/aggregated_risk.html', context)
+
+
+
