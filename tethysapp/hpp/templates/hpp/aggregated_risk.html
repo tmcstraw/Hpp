@@ -1,6 +1,15 @@
 {% extends "hpp/base.html" %}
 {% load tethys_gizmos %}
 {% load static %}
+{% load tethys_gizmos staticfiles %}
+
+{% block import_gizmos %}
+    {% import_gizmo_dependency plotly_view %}
+    {% import_gizmo_dependency map_view %}
+    {% import_gizmo_dependency datatable_view %}
+{% endblock %}
+
+
 
 
 {% block header_buttons %}
@@ -87,11 +96,11 @@
                       <label for="zone-add-subweights-checkbox-1" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-1" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-1" name="zone-agg-method-select-1">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-1" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-1">
@@ -112,11 +121,11 @@
                       <label for="zone-add-subweights-checkbox-2" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-2" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-2" name="zone-agg-method-select-2">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-2" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-2">
@@ -137,11 +146,11 @@
                       <label for="zone-add-subweights-checkbox-3" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-3" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-3" name="zone-agg-method-select-3">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-3" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-3">
@@ -162,11 +171,11 @@
                       <label for="zone-add-subweights-checkbox-4" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-4" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-4" name="zone-agg-method-select-4">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-4" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-4">
@@ -187,11 +196,11 @@
                       <label for="zone-add-subweights-checkbox-5" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-5" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-5" name="zone-agg-method-select-5">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-5" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-5">
@@ -212,11 +221,11 @@
                       <label for="zone-add-subweights-checkbox-6" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-6" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-6" name="zone-agg-method-select-6">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-6" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-6">
@@ -237,11 +246,11 @@
                       <label for="zone-add-subweights-checkbox-7" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-7" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-7" name="zone-agg-method-select-7">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-7" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-7">
@@ -262,11 +271,11 @@
                       <label for="zone-add-subweights-checkbox-8" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-8" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-8" name="zone-agg-method-select-8">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-8" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-8">
@@ -287,11 +296,11 @@
                       <label for="zone-add-subweights-checkbox-9" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-9" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-9" name="zone-agg-method-select-9">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-9" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-9">
@@ -312,11 +321,11 @@
                       <label for="zone-add-subweights-checkbox-10" class="subweight-input-label">Add Subweights</label>
                       <label for="zone-agg-method-select-10" class="agg-input-label">Aggregation Method:</label>
                       <select id="zone-agg-method-select-10" name="zone-agg-method-select-10">
-                          <option value="sum">Sum</option>
-                          <option value="mean">Mean</option>
-                          <option value="count">Count</option>
-                          <option value="max">Max</option>
-                          <option value="min">Min</option>
+                          <option value="None">NA</option>
+                          <!--<option value="mean">Mean</option>-->
+                          <!--<option value="count">Count</option>-->
+                          <!--<option value="max">Max</option>-->
+                          <!--<option value="min">Min</option>-->
                       </select>
                       <label for="zone-lof-or-cof-select-10" class="ctype-input-label">Criteria Type:</label>
                       <select id="zone-lof-or-cof-select-10">
@@ -3619,6 +3628,7 @@
                             <option value="yellow-3"selected>Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row1-col2"><select id="cof-very-high-2" class="zone-classifier-dropdown l-lof" name="cof-very-high-2" style="">
                             <option value="green-1" >Very Low</option>
@@ -3626,6 +3636,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4" selected>High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row1-col3"><select id="cof-very-high-3" class="zone-classifier-dropdown m-lof" name="cof-very-high-3" style="">
                             <option value="green-1">Very Low</option>
@@ -3633,6 +3644,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5" selected>Very High</option>
+                        </select>
                     </td>
                     <td id="row1-col4"><select id="cof-very-high-4" class="zone-classifier-dropdown h-lof" name="cof-very-high-4" style="">
                             <option value="green-1">Very Low</option>
@@ -3640,6 +3652,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5" selected>Very High</option>
+                        </select>
                     </td>
                     <td id="row1-col5"><select id="cof-very-high-5" class="zone-classifier-dropdown vh-lof" name="cof-very-high-5" style="">
                             <option value="green-1">Very Low</option>
@@ -3647,6 +3660,7 @@
                             <option value="yellow-3" >Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5" selected>Very High</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -3657,6 +3671,7 @@
                             <option value="yellow-3"selected>Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row2-col2"><select id="cof-high-2" class="zone-classifier-dropdown l-lof" name="cof-high-2" style="">
                             <option value="green-1" >Very Low</option>
@@ -3664,6 +3679,7 @@
                             <option value="yellow-3"selected>Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row2-col3"><select id="cof-high-3" class="zone-classifier-dropdown m-lof" name="cof-high-3" style="">
                             <option value="green-1">Very Low</option>
@@ -3671,6 +3687,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4" selected>High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row2-col4"><select id="cof-high-4" class="zone-classifier-dropdown h-lof" name="cof-high-4" style="">
                             <option value="green-1">Very Low</option>
@@ -3678,6 +3695,7 @@
                             <option value="yellow-3" >Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5" selected>Very High</option>
+                        </select>
                     </td>
                     <td id="row2-col5"><select id="cof-high-5" class="zone-classifier-dropdown vh-lof" name="cof-high-5" style="">
                             <option value="green-1">Very Low</option>
@@ -3685,6 +3703,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4" >High</option>
                             <option value="red-5" selected>Very High</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -3695,6 +3714,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row3-col2"><select id="cof-med-2" class="zone-classifier-dropdown l-lof" name="cof-med-2" style="">
                             <option value="green-1">Very Low</option>
@@ -3702,6 +3722,7 @@
                             <option value="yellow-3" selected>Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row3-col3"><select id="cof-med-3" class="zone-classifier-dropdown m-lof" name="cof-med-3" style="">
                             <option value="green-1">Very Low</option>
@@ -3709,6 +3730,7 @@
                             <option value="yellow-3"selected>Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row3-col4"><select id="cof-med-4" class="zone-classifier-dropdown h-lof" name="cof-med-4" style="">
                             <option value="green-1">Very Low</option>
@@ -3716,6 +3738,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4"selected>High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row3-col5"><select id="cof-med-5" class="zone-classifier-dropdown vh-lof" name="cof-med-5" style="">
                             <option value="green-1">Very Low</option>
@@ -3723,6 +3746,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5" selected>Very High</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -3733,6 +3757,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row4-col2"><select id="cof-low-2" class="zone-classifier-dropdown l-lof" name="cof-low-2" style="">
                             <option value="green-1">Very Low</option>
@@ -3740,6 +3765,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row4-col3"><select id="cof-low-3" class="zone-classifier-dropdown m-lof" name="cof-low-3" style="">
                             <option value="green-1">Very Low</option>
@@ -3747,6 +3773,7 @@
                             <option value="yellow-3" selected>Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row4-col4"><select id="cof-low-4" class="zone-classifier-dropdown h-lof" name="cof-low-4" style="">
                             <option value="green-1">Very Low</option>
@@ -3754,6 +3781,7 @@
                             <option value="yellow-3" selected>Medium</option>
                             <option value="orange-4" >High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row4-col5"><select id="cof-low-5" class="zone-classifier-dropdown vh-lof" name="cof-low-5" style="">
                             <option value="green-1">Very Low</option>
@@ -3761,6 +3789,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4" selected>High</option>
                             <option value="red-5" >Very High</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -3771,6 +3800,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4" >High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row5-col2"><select id="cof-very-low-2" class="zone-classifier-dropdown l-lof" name="cof-very-low-2" style="">
                             <option value="green-1" selected>Very Low</option>
@@ -3778,6 +3808,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4" >High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row5-col3"><select id="cof-very-low-3" class="zone-classifier-dropdown m-lof" name="cof-very-low-3" style="">
                             <option value="green-1">Very Low</option>
@@ -3785,6 +3816,7 @@
                             <option value="yellow-3">Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                     <td id="row5-col4"><select id="cof-very-low-4" class="zone-classifier-dropdown h-lof" name="cof-very-low-4" style="">
                             <option value="green-1">Very Low</option>
@@ -3792,6 +3824,7 @@
                             <option value="yellow-3" selected>Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5" >Very High</option>
+                        </select>
                     </td>
                     <td id="row5-col5"><select id="cof-very-low-5" class="zone-classifier-dropdown vh-lof" name="cof-very-low-5" style="">
                             <option value="green-1">Very Low</option>
@@ -3799,6 +3832,7 @@
                             <option value="yellow-3"selected>Medium</option>
                             <option value="orange-4">High</option>
                             <option value="red-5">Very High</option>
+                        </select>
                     </td>
                 </tr>
 
@@ -3846,39 +3880,162 @@
 
     </div>
 
-    <!--<div id="page-four">-->
-        <!--<h1>Normalize Data by Assigning Risk Scores</h1>-->
+    <div id="page-four">
+        <div class="container">
+                  <h1>Result Viewer/Report Generator</h1>
 
-        <!--<div class="table-overflow">-->
-            <!--<table class="table table-striped">-->
-                <!---->
-            <!--{% for criteria in criteria_list %}-->
-                <!--<thead>-->
-                    <!--<th>{{criteria.criteria_name}}</th>-->
-                <!--{% endfor %}-->
-                    <!--<th>Total LOF Score</th>-->
-                    <!--<th>Total COF Score</th>-->
-                    <!--<th>Total Risk Score</th>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                    <!--<tr>-->
-    <!---->
-                        <!--</td>-->
-                        <!--<td class="risk-criteria-id">{{criteria.id}}</td>-->
-                        <!--<td class="risk-criteria-name">{{criteria.criteria_name}}</td>-->
-                        <!--<td class="risk-orig-field-name">{{criteria.field_name}}</td>-->
-                        <!--<td class="risk-scores" id="{{criteria.criteria_name}}-risk-score"><li onclick="showRiskScoreModal(['{{criteria.criteria_name}}','{{criteria.id}}']);">Edit Risk Scores</li></td>-->
-                        <!--<td class="risk-criteria-type">{{criteria.criteria_type}}</td>-->
-                        <!--<td class="risk-weight-percent"><input type="text" id="{{criteria.criteria_name}}-risk-weight" value="{{criteria.criteria_weight}}" onchange="saveRiskWeightToDB(['{{criteria.criteria_name}}','{{criteria.id}}']);" class="risk-weight-value" name="{{criteria.criteria_name}}-risk-weight" style="width:100px"></td>-->
-    <!---->
-                        <!--</td>-->
-                    <!--</tr>-->
-            <!---->
-            <!--</tbody>-->
-            <!--</table>-->
-        <!--</div>-->
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#zone-map-viewer">Map View</a></li>
+                    <li><a data-toggle="tab" href="#zone-table-view">Table View</a></li>
+                    <li><a data-toggle="tab" href="#report-gen">Generate Report</a></li>
+                  </ul>
 
-    <!--</div>-->
+                  <div class="tab-content">
+
+                    <div id="zone-map-viewer" class="tab-pane fade in active">
+                        <div id="zone-map" style="height:500px; width:95%; margin:5px; align:center;"></div>
+
+                    </div>
+
+                    <div id="zone-table-view" class="tab-pane fade">
+                        <div id="datatable_div" style="overflow-x:auto; margin:10px; padding:5px;" ></div>
+                    </div>
+                    <div id="report-gen" class="tab-pane fade">
+                        <div id="pdf-gen">
+                            <br>
+                            <div>
+                                <label class="control-label" for="list-of-zone-pdfs">Generate Reports For the Following Zones (Ex: 1, 5, 6, 14, etc.):</label><br>
+                                <textarea  id="list-of-zone-pdfs" rows="1" cols="100" class="report-text-field"></textarea>
+
+                            </div>
+                            <br><br><br><br>
+                            <div class ="column-split" style="width:100%;">
+                                <div class="col1" style="width:50%; float:left">
+                                    <div id="report-preview" style="height:330px; 1px solid #000000;">
+                                            <div class="pdf-placement" style="height:65px;">
+                                                <div class="col1" style="width:33%; float:left"><span>Client Logo</span></div>
+                                                <div class="col2" style="width:34%; padding-left:80px; float:left"><span style="float:center; text-align:center;">Zone #</span></div>
+                                                <div class="col2" style="width:33%; float:left"><span style="float:right; text-align:right;">AE2S Logo</span></div>
+                                            </div>
+                                        <div class="col1" style="width:50%; float:left">
+                                            <div class="pdf-placement" style="height:180px;"><span>1</span></div>
+                                            <div class="pdf-placement" style="height:180px;"><span>2</span></div>
+                                            <div class="pdf-placement" style="height:180px;"><span>3</span></div>
+                                        </div>
+                                        <div class="col2" style="width:50%; float:left">
+                                            <div class="pdf-placement" style="height:180px;"><span>4</span></div>
+                                            <div class="pdf-placement" style="height:180px;"><span>5</span></div>
+                                            <div class="pdf-placement" style="height:180px;"><span>6</span></div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col2" style="width:50%; float:left">
+                                    <br>
+                                    <label style="float:left; margin-top:15px; margin-left:15px;" class="control-label" for="client-logo-upload">Select Client Logo File (.jpg,.png,.gif,.tif):</label>
+                                    <input style="float:left;" id="client-logo-upload" class="shp-upload-input"   type="file" accept=".jpg,.png,.gif,.tif" multiple>
+                                    <br><br><br>
+                                    <label style="float:left; margin-top:15px; margin-left:15px;" class="control-label" for="ae2s-logo-upload">Select AE2S Logo File (.jpg,.png,.gif,.tif):</label>
+                                    <input style="float:left;" id="ae2s-logo-upload" class="shp-upload-input"   type="file" accept=".jpg,.png,.gif,.tif" multiple>
+                                    <br><br><br><br><br>
+                                    <label for="select-pdf-1" style="margin-left:15px;" class="zcb-label">Select Area #1 Exhibit</label>
+
+                                    <select id="select-pdf-1" style="width:200px; height:30px; margin-top:10px">
+                                        <option value="tot"selected>Total Risk Scores Bargraph</option>
+                                        <option value="lof">LOF Risk Scores Bargraph</option>
+                                        <option value="cof">COF Risk Scores Bargraph</option>
+                                        <option value="tot">Total Risk Scores Pie Chart</option>
+                                        <option value="lof">LOF Risk Scores Pie Chart</option>
+                                        <option value="cof">COF Risk Scores Pie Chart</option>
+                                        <option value="tot">Summary Table</option>
+                                        <option value="lof">Zone Map</option>
+                                        <option value="cof">Text Fields</option>
+                                    </select>
+                                    <br><br>
+                                    <label for="select-pdf-2" style="margin-left:15px;" class="zcb-label">Select Area #2 Exhibit</label>
+
+                                    <select id="select-pdf-2" style="width:200px; height:30px; margin-top:10px">
+                                        <option value="tot"selected>Total Risk Scores Bargraph</option>
+                                        <option value="lof">LOF Risk Scores Bargraph</option>
+                                        <option value="cof">COF Risk Scores Bargraph</option>
+                                        <option value="tot">Total Risk Scores Pie Chart</option>
+                                        <option value="lof">LOF Risk Scores Pie Chart</option>
+                                        <option value="cof">COF Risk Scores Pie Chart</option>
+                                        <option value="tot">Summary Table</option>
+                                        <option value="lof">Zone Map</option>
+                                        <option value="cof">Text Fields</option>
+                                    </select>
+                                    <br><br>
+                                    <label for="select-pdf-3" style="margin-left:15px;" class="zcb-label">Select Area #3 Exhibit</label>
+
+                                    <select id="select-pdf-3" style="width:200px; height:30px; margin-top:10px">
+                                        <option value="tot"selected>Total Risk Scores Bargraph</option>
+                                        <option value="lof">LOF Risk Scores Bargraph</option>
+                                        <option value="cof">COF Risk Scores Bargraph</option>
+                                        <option value="tot">Total Risk Scores Pie Chart</option>
+                                        <option value="lof">LOF Risk Scores Pie Chart</option>
+                                        <option value="cof">COF Risk Scores Pie Chart</option>
+                                        <option value="tot">Summary Table</option>
+                                        <option value="lof">Zone Map</option>
+                                        <option value="cof">Text Fields</option>
+                                    </select>
+                                    <br><br>
+                                    <label for="select-pdf-4" style="margin-left:15px;" class="zcb-label">Select Area #4 Exhibit</label>
+
+                                    <select id="select-pdf-4" style="width:200px; height:30px; margin-top:10px">
+                                        <option value="tot"selected>Total Risk Scores Bargraph</option>
+                                        <option value="lof">LOF Risk Scores Bargraph</option>
+                                        <option value="cof">COF Risk Scores Bargraph</option>
+                                        <option value="tot">Total Risk Scores Pie Chart</option>
+                                        <option value="lof">LOF Risk Scores Pie Chart</option>
+                                        <option value="cof">COF Risk Scores Pie Chart</option>
+                                        <option value="tot">Summary Table</option>
+                                        <option value="lof">Zone Map</option>
+                                        <option value="cof">Text Fields</option>
+                                    </select>
+                                    <br><br>
+                                    <label for="select-pdf-5" style="margin-left:15px;" class="zcb-label">Select Area #5 Exhibit</label>
+
+                                    <select id="select-pdf-5" style="width:200px; height:30px; margin-top:10px">
+                                        <option value="tot"selected>Total Risk Scores Bargraph</option>
+                                        <option value="lof">LOF Risk Scores Bargraph</option>
+                                        <option value="cof">COF Risk Scores Bargraph</option>
+                                        <option value="tot">Total Risk Scores Pie Chart</option>
+                                        <option value="lof">LOF Risk Scores Pie Chart</option>
+                                        <option value="cof">COF Risk Scores Pie Chart</option>
+                                        <option value="tot">Summary Table</option>
+                                        <option value="lof">Zone Map</option>
+                                        <option value="cof">Text Fields</option>
+                                    </select>
+                                    <br><br>
+                                    <label for="select-pdf-6" style="margin-left:15px;" class="zcb-label">Select Area #6 Exhibit</label>
+
+                                    <select id="select-pdf-6" style="width:200px; height:30px; margin-top:10px">
+                                        <option value="tot"selected>Total Risk Scores Bargraph</option>
+                                        <option value="lof">LOF Risk Scores Bargraph</option>
+                                        <option value="cof">COF Risk Scores Bargraph</option>
+                                        <option value="tot">Total Risk Scores Pie Chart</option>
+                                        <option value="lof">LOF Risk Scores Pie Chart</option>
+                                        <option value="cof">COF Risk Scores Pie Chart</option>
+                                        <option value="tot">Summary Table</option>
+                                        <option value="lof">Zone Map</option>
+                                        <option value="cof">Text Fields</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+
+        <!--<div id="pie-div" style="height:500px; width:100%;"></div>-->
+
+    </div>
 
 
 
@@ -3890,6 +4047,123 @@
 
 {# Use the after_app_content block for modals #}
 {% block after_app_content %}
+    <div class="modal fade" id="piechart-modal" style="width:100%; max-width:100%;" tabindex="-1" role="dialog" aria-labelledby="piechart-modal-label">
+        <div class="modal-dialog" style="width:95%;" role="document">
+          <div class="modal-content" style="width:100%; align:center;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title" id="zone-id-label">Zone ID</h2>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="width:100%;">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#lof_data">LOF Data</a></li>
+                    <li><a data-toggle="tab" href="#cof_data">COF Data</a></li>
+                    <li><a data-toggle="tab" href="#tot_data">Total Risk Data</a></li>
+                    <li><a id="map-tab-toggle" data-toggle="tab" href="#mapdata" onclick="miniZoneMap(this.value);">Map & Notes</a></li>
+                  </ul>
+
+                  <div class="tab-content">
+                    <div id="lof_data" class="tab-pane fade in active">
+                        <div class ="column-split" style="width:100%;">
+                            <div class="col1" style="width:50%; float:left">
+                                <div id="lof-zone-piechart">
+                                </div>
+                            </div>
+                            <div class="col2" style="width:50%; float:left">
+                                <div id="lof-zone-barchart">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cof_data" class="tab-pane fade">
+                        <div class ="column-split" style="width:100%;">
+                            <div class="col1" style="width:50%; float:left;">
+                                <div id="cof-zone-piechart">
+                                </div>
+                            </div>
+                            <div class="col2" style="width:50%; float:left;">
+                                <div id="cof-zone-barchart">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tot_data" class="tab-pane fade">
+                        <div class ="column-split" style="width:100%;">
+                            <div class="col1" style="width:50%; float:left">
+                                <label for="num-zones-in-bar" class="zcb-label">Top</label>
+                                <input type="number" style="width:75px; height:30px; margin-top:10px" id="num-zones-in-bar" value="10">
+                                <select id="top-barchart-select" name="top-barchart-select" style="width:200px; height:30px; margin-top:10px">
+                                    <option value="tot"selected>Total Risk Scores</option>
+                                    <option value="lof">LOF Risk Scores</option>
+                                    <option value="cof">COF Risk Scores</option>
+                                </select>
+                                <div id="top-tot-zone-barchart">
+                                </div>
+                                <div id="top-cof-zone-barchart">
+                                </div>
+                                <div id="top-lof-zone-barchart">
+                                </div>
+                            </div>
+                            <div class="col2" style="width:50%; float:left">
+                                <div id="zone-summary-table" style="margin-top=10px;">
+                                    <br><br>
+                                    <table  class="table table-striped">
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Risk Score</th>
+                                            <th>Rank Relative to Other Zones</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Total LOF Score</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total COF Score</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Normalized Score</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="mapdata" class="tab-pane fade">
+                        <div class ="column-split" style="width:100%;">
+                            <div class="col1" style="width:50%; float:left">
+                                <h5>Flood Issue Notes</h5>
+                                <textarea id="flood-notes" rows="4" cols="75" class="report-text-field" name="flood-notes"></textarea>
+                                <h5>Concept Level Improvements</h5>
+                                <textarea id="improvement-notes" rows="4" cols="75" class="report-text-field" name="improvement-notes"></textarea>
+                                <h5>Cost Estimates</h5>
+                                <textarea id="cost-estimate-notes" rows="4" cols="75" class="report-text-field" name="cost-estimate-notes"></textarea>
+                            </div>
+                            <div class="col2" style="width:50%; float:left;">
+                                {% gizmo zone_map %}
+                            </div>
+                        </div>
+
+
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+    </div>
   <!-- Example Modal -->
     <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
         <div class="modal-dialog" role="document">
@@ -3916,7 +4190,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h5 class="modal-title" id="help-modal-label">Example Modal</h5>
+              <h5 class="modal-title" id="subweights-modal-label">Example Modal</h5>
             </div>
             <div class="modal-body">
                 <label for="num-subweights-select">Number of Subweight Classes:</label>
@@ -4127,7 +4401,9 @@
 
 {% block content_dependent_styles %}
   {{ block.super }}
-  <link href="{% static 'hpp/css/main.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'hpp/leaflet/leaflet.css' %}" />
+    <link href="{% static 'hpp/css/main.css' %}" rel="stylesheet"/>
 
 {% endblock %}
 
@@ -4135,5 +4411,8 @@
   {{ block.super }}
   <!--<link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css" />-->
   <!--<script src="https://js.arcgis.com/4.15/"></script>-->
-  <script src="{% static 'hpp/js/aggregated_risk.js' %}" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'hpp/leaflet/leaflet.js' %}" type="text/javascript"></script>
+    <script src="{% static 'hpp/js/aggregated_risk.js' %}" type="text/javascript"></script>
 {% endblock %}

@@ -7,8 +7,8 @@
 #showzonemap {
     padding: 5px;
     margin: 5px;
-    height: 500px;
-    width: 600px;
+    height: 100%;
+    width: 100%;
     float: right
 
 }
@@ -22,6 +22,11 @@
   display:inline-block;
   }
 
+.report-text-field {
+
+  margin:10px;
+
+}
 
 .custom-file-input-elements {
   white-space=nowrap;
@@ -45,6 +50,14 @@
   display:inline-block;
   white-space=nowrap;
   }
+
+.pdf-placement{
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 5px;
+}
+
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -60,18 +73,26 @@ td, th {
 tr:nth-child(even) {
 
 }
+#page-one{
+  display:block;
+  }
 #page-two{
   display:none;
   }
+#page-three{
+  display:none;
+  }
+#page-four{
+  display:none;
+  }
+
 #col-one-zclass{
   width:50%;
   }
 #col-two-zclass{
   width:50%;
   }
-#page-three{
-  display:none;
-  }
+
 .zone-classifier-dropdown{
   height:100%;
   width:100%;
@@ -307,3 +328,8 @@ input.invalid {
   opacity: 1;
   right: 0;
 }
+#piechart-modal {
+  width: 90%;
+}
+#piechart-modal {
+  width: 90%;

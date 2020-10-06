@@ -4,12 +4,13 @@ import tempfile, shutil
 from osgeo import ogr
 import os
 import json
+from .config import USER_DIR
 
 def move_files(shapefile,file_name):
 
     return_obj = {}
 
-    SHP_DIR = '/Users/tmcstraw/tethysdev/tethysapp-hpp/tethysapp/hpp/workspaces/user_workspaces/'+file_name+'/'
+    SHP_DIR = USER_DIR + file_name+'/'
 
     SHP_DIR = os.path.join(SHP_DIR, '')
 
@@ -41,7 +42,7 @@ def move_files(shapefile,file_name):
     return return_obj
 def move_files_get_fields(shapefile,file_name):
 
-    SHP_DIR = '/Users/tmcstraw/tethysdev/tethysapp-hpp/tethysapp/hpp/workspaces/user_workspaces/'+file_name+'/'
+    SHP_DIR = USER_DIR+ file_name+'/'
 
     SHP_DIR = os.path.join(SHP_DIR, '')
 

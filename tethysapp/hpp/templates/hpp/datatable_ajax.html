@@ -1,0 +1,10 @@
+{% load tethys_gizmos %}
+{% load static %}
+{% load tethys_gizmos staticfiles %}
+{% block import_gizmos %}
+    {% import_gizmo_dependency datatable_view %}
+{% endblock %}
+
+
+{% gizmo datatable_options %}
+

@@ -1,6 +1,8 @@
 var currentTab = 0; // Current tab is set to be the first tab (0)
 var map;
 var view;
+var correct_olmap_size;
+
 
 
 function uncheckAll() {
@@ -26,40 +28,205 @@ function refreshTable(){
 //    $('#page-two').load(self);
     $("#page-two").load(" #page-two > *");
     }
+function refreshZoneClassTable(){
+//    $('#page-two').load(self);
+    $("#page-three").load(" #page-three > *");
+    }
+function refreshPageFour(){
+//    $('#page-two').load(self);
+    $("#page-four").load(" #page-four > *");
+    }
+function showTopBarChart(){
 
-function hidePageOneShowTwo(){
+        var chart_type = document.getElementById('top-barchart-select').value
+
+        document.getElementById('top-cof-zone-barchart').style.display ="none";
+        document.getElementById('top-lof-zone-barchart').style.display ="none";
+        document.getElementById('top-tot-zone-barchart').style.display ="none";
+
+        document.getElementById('top-'+chart_type+'-zone-barchart').style.display ="block";
+
+}
+function cyclePagesForward(){
+    if (document.getElementById('page-three').style.display =="block"){
+
+        document.getElementById('page-three').style.display ="none";
+
+        document.getElementById('page-four').style.display ="block";
+//        refreshPageFour();
+//        resetZoneMap();
+    };
+    if (document.getElementById('page-two').style.display =="block"){
+
+        document.getElementById('page-two').style.display ="none";
+
+        document.getElementById('page-three').style.display ="block";
+    };
+    if (document.getElementById('page-one').style.display =="") {
 
         document.getElementById('page-one').style.display ="none";
 
         document.getElementById('page-two').style.display ="block";
+    };
+    if (document.getElementById('page-one').style.display =="block") {
 
+        document.getElementById('page-one').style.display ="none";
 
-
+        document.getElementById('page-two').style.display ="block";
     };
 
 
 
+};
 
+function cyclePagesBackward(){
+    console.log("made it")
 
-
-function hidePageTwoShowOne(){
+    if (document.getElementById('page-two').style.display =="block") {
 
         document.getElementById('page-two').style.display ="none";
 
         document.getElementById('page-one').style.display ="block";
     };
-function hidePageTwoShowThree(){
+    if (document.getElementById('page-three').style.display =="block"){
 
-        document.getElementById('page-two').style.display ="none";
+        document.getElementById('page-three').style.display ="none";
+
+        document.getElementById('page-two').style.display ="block";
+    };
+    if (document.getElementById('page-four').style.display =="block"){
+
+        document.getElementById('page-four').style.display ="none";
 
         document.getElementById('page-three').style.display ="block";
     };
-function hidePageOneShowThree(){
 
-        document.getElementById('page-one').style.display ="none";
+};
 
-        document.getElementById('page-three').style.display ="block";
-    };
+function loadZoneClassTableFromDB() {
+
+        var data = new FormData();
+        data.append("risk_analysis_name","test");
+
+        var getzclass = ajax_update_database_with_file("get-zone-classes-from-db",data); //Submitting the data through the ajax function, see main.js for the helper function.
+        getzclass.done(function(return_data){ //Reset the form once the data is added successfully
+            if("row1" in return_data){
+                row1 = return_data.row1;
+
+                for (var i = 0; i<=4; i++) {
+
+                    console.log(row1[i])
+                    if (row1[i] == "Very High"){
+                        $('#row1-col'+(i+1)+" [value = 'red-5']").attr("selected","selected");
+                        document.getElementById('row1-col'+(i+1)).style.backgroundColor = 'red'};
+                    if (row1[i] == "High"){
+                        $('#row1-col'+(i+1)+" [value = 'orange-4']").attr("selected","selected");
+                        document.getElementById('row1-col'+(i+1)).style.backgroundColor = 'orange'};
+                    if (row1[i] == "Medium"){
+                        $('#row1-col'+(i+1)+" [value = 'yellow-3']").attr("selected","selected");
+                        document.getElementById('row1-col'+(i+1)).style.backgroundColor = 'yellow'};
+                    if (row1[i] == "Low"){
+                        $('#row1-col'+(i+1)+" [value = 'yellowgreen-2']").attr("selected","selected");
+                        document.getElementById('row1-col'+(i+1)).style.backgroundColor = 'yellowgreen'};
+                    if (row1[i] == "Very Low"){
+                        $('#row1-col'+(i+1)+" [value = 'green-1']").attr("selected","selected");
+                        document.getElementById('row1-col'+(i+1)).style.backgroundColor = 'green'};
+                };
+            };
+            if("row2" in return_data){
+                row2 = return_data.row2
+
+                for (var j = 0; j<=4; j++) {
+                    if (row2[j] == "Very High"){
+                        $('#row2-col'+(j+1)+" [value = 'red-5']").attr("selected","selected");
+                        document.getElementById('row2-col'+(j+1)).style.backgroundColor = 'red'};
+                    if (row2[j] == "High"){
+                        $('#row2-col'+(j+1)+" [value = 'orange-4']").attr("selected","selected");
+                        document.getElementById('row2-col'+(j+1)).style.backgroundColor = 'orange'};
+                    if (row2[j] == "Medium"){
+                        $('#row2-col'+(j+1)+" [value = 'yellow-3']").attr("selected","selected");
+                        document.getElementById('row2-col'+(j+1)).style.backgroundColor = 'yellow'};
+                    if (row2[j] == "Low"){
+                        $("#row2-col"+(j+1)+" [value = 'yellowgreen-2']").attr("selected","selected");
+                        document.getElementById('row2-col'+(j+1)).style.backgroundColor = 'yellowgreen'};
+                    if (row2[j] == "Very Low"){
+                        $("#row2-col"+(j+1)+" [value = 'green-1']").attr("selected","selected");
+                        document.getElementById('row2-col'+(j+1)).style.backgroundColor = 'green'};
+
+                };
+            };
+            if("row3" in return_data){
+                row3 = return_data.row3
+
+                for (var k = 0; k<=4; k++) {
+
+                    if (row3[k] == "Very High"){
+                        $("#row3-col"+(k+1)+" [value = 'red-5']").attr("selected","selected");
+                        document.getElementById('row3-col'+(k+1)).style.backgroundColor = 'red'};
+                    if (row3[k] == "High"){
+                        $("#row3-col"+(k+1)+" [value = 'orange-4']").attr("selected","selected");
+                        document.getElementById('row3-col'+(k+1)).style.backgroundColor = 'orange'};
+                    if (row3[k] == "Medium"){
+                        $("#row3-col"+(k+1)+" [value = 'yellow-3']").attr("selected","selected");
+                        document.getElementById('row3-col'+(k+1)).style.backgroundColor = 'yellow'};
+                    if (row3[k] == "Low"){
+                        $("#row3-col"+(k+1)+" [value = 'yellowgreen-2']").attr("selected","selected");
+                        document.getElementById('row3-col'+(k+1)).style.backgroundColor = 'yellowgreen'};
+                    if (row3[k] == "Very Low"){
+                        $("#row3-col"+(k+1)+" [value = 'green-1']").attr("selected","selected");
+                        document.getElementById('row3-col'+(k+1)).style.backgroundColor = 'green'};
+                };
+            };
+            if("row4" in return_data){
+                row4 = return_data.row4
+
+                for (var l = 0; l<=4; l++) {
+                    if (row4[l] == "Very High"){
+                        $("#row4-col"+(l+1)+" [value = 'red-5']").attr("selected","selected");
+                        document.getElementById('row4-col'+(l+1)).style.backgroundColor = 'red'};
+                    if (row4[l] == "High"){
+                        $("#row4-col"+(l+1)+" [value = 'orange-4']").attr("selected","selected");
+                        document.getElementById('row4-col'+(l+1)).style.backgroundColor = 'orange'};
+                    if (row4[l] == "Medium"){
+                        $("#row4-col"+(l+1)+" [value = 'yellow-3']").attr("selected","selected");
+                        document.getElementById('row4-col'+(l+1)).style.backgroundColor = 'yellow'};
+                    if (row4[l] == "Low"){
+                        $("#row4-col"+(l+1)+" [value = 'yellowgreen-2']").attr("selected","selected");
+                        document.getElementById('row4-col'+(l+1)).style.backgroundColor = 'yellowgreen'};
+                    if (row4[l] == "Very Low"){
+                        $("#row4-col"+(l+1)+" [value = 'green-1']").attr("selected","selected");
+                        document.getElementById('row4-col'+(l+1)).style.backgroundColor = 'green'};
+                };
+            };
+            if("row5" in return_data){
+                row5 = return_data.row5
+
+                for (var z = 0; z<=4; z++) {
+                    if (row5[z] == "Very High"){
+                        $("#row5-col"+(z+1)+" [value = 'red-5']").attr("selected","selected");
+                        document.getElementById('row5-col'+(z+1)).style.backgroundColor = 'red'};
+                    if (row5[z] == "High"){
+                        $("#row5-col"+(z+1)+" [value = 'orange-4']").attr("selected","selected");
+                        document.getElementById('row5-col'+(z+1)).style.backgroundColor = 'orange'};
+                    if (row5[z] == "Medium"){
+                        $("#row5-col"+(z+1)+" [value = 'yellow-3']").attr("selected","selected");
+                        document.getElementById('row5-col'+(z+1)).style.backgroundColor = 'yellow'};
+                    if (row5[z] == "Low"){
+                        $("#row5-col"+(z+1)+" [value = 'yellowgreen-2']").attr("selected","selected");
+                        document.getElementById('row5-col'+(z+1)).style.backgroundColor = 'yellowgreen'};
+                    if (row5[z] == "Very Low"){
+                        $("#row5-col"+(z+1)+" [value = 'green-1']").attr("selected","selected");
+                        document.getElementById('row5-col'+(z+1)).style.backgroundColor = 'green'};
+                };
+            };
+//            refreshZoneClassTable();
+
+        });
+
+};
+
+
+
 
 function saveRiskWeightToDB(criteria_data) {
 
@@ -138,6 +305,7 @@ function saveRiskDataToDB() {
 
 function saveZoneClassTableToDB() {
 
+        var risk_analysis_name = document.getElementById('risk-analysis-name').value;
         var row_1_array = [];
         var row_2_array = [];
         var row_3_array = [];
@@ -196,13 +364,49 @@ function saveZoneClassTableToDB() {
 
         var data = new FormData();
 
+        data.append("risk_analysis_name",risk_analysis_name);
         data.append("lof_breaks",json_lof_breaks);
         data.append("cof_breaks",json_cof_breaks);
         data.append("zone_category_list",json_zone_class_table_array);
 
         var save_zone_classification = ajax_update_database_with_file("save-zone-classification-to-db", data); //Submitting the data through the ajax function, see main.js for the helper function.
-        save_zone_classification.done(function(return_data){ //Reset the form once the data is added successfully
+        save_zone_classification.done(function(return_data){
+//        if("GeoJSON_File" in return_data){
+//                console.log(return_data.GeoJSON_File)
+//           };
+        if("GeoJSON_Features" in return_data){
+                if (document.getElementById('page-three').style.display =="block"){
+
+                    document.getElementById('page-three').style.display ="none";
+
+                    document.getElementById('page-four').style.display ="block";
+            //
+                    resetZoneMap(return_data.GeoJSON_Features, return_data.extent);
+//                  $(function() { //wait for page to load
+
+                    $.ajax({
+                        url: 'datatable-ajax',
+                        method: 'GET',
+                        data: {
+                            'searching': false, //example data to pass to the controller
+                        },
+                        success: function(data) {
+                            //add DataTable  to page
+                           $("#datatable_div").html(data);
+
+                            //Initialize DataTable
+//                           $("#datatable_div").find('.data_table_gizmo_view').DataTable();
+                         }
+                    });
+
+
+
+                };
+
+           };
         });
+        //Reset the form once the data is added successfully
+
 
 
 };
@@ -219,7 +423,7 @@ function applyRiskScores() {
 //        data.append("criteria_id",criteria_id)
 
         var risk_score_reclassification = ajax_update_database_with_file("risk-score-reclassification", data); //Submitting the data through the ajax function, see main.js for the helper function.
-        risk_score_reclassification.done(function(return_data){ //Reset the form once the data is added successfully
+        risk_score_reclassification.done(function(return_data){
         });
 
 };
@@ -487,6 +691,148 @@ function UpdateNumRiskClasses() {
 
 
         var populate_modal = ajax_update_database_with_file("populate-risk-score-modal", data); //Submitting the data through the ajax function, see main.js for the helper function.
+        populate_modal.done(function(return_data){ //Reset the form once the data is added successfully
+
+           if("num_classes" in return_data){
+                document.getElementById('num-risk-classes-select').value = return_data.num_classes;
+                for (var i = 1; i <= return_data.num_classes; i++) {
+                    document.getElementById('risk-class-'+i).style.display = 'table-row';
+
+                };
+           } else {
+
+                for (var i = 1; i <= num_classes_int; i++) {
+                    document.getElementById('risk-class-'+i).style.display = 'table-row';
+
+                };
+           };
+           if("min_1" in return_data){
+                console.log(return_data.min_1)
+                document.getElementById('min-1-text-input').value = return_data.min_1;
+           };
+           if("max_1" in return_data){
+                console.log(return_data.max_1)
+                document.getElementById('max-1-text-input').value = return_data.max_1;
+
+           };
+           if("count_1" in return_data){
+                console.log(return_data.count_1)
+                document.getElementById('num-in-range-1').innerHTML = (return_data.count_1 + '/'+return_data.tot);
+
+           };
+           if("risk_score_1" in return_data){
+                document.getElementById('risk-score-1-select').value = return_data.risk_score_1;
+
+           };
+
+           if("min_2" in return_data){
+                console.log(return_data.min_2)
+                document.getElementById('min-2-text-input').value = return_data.min_2;
+
+           };
+           if("max_2" in return_data){
+                console.log(return_data.max_2)
+                document.getElementById('max-2-text-input').value = return_data.max_2;
+
+           };
+           if("count_2" in return_data){
+                console.log(return_data.count_2)
+                document.getElementById('num-in-range-2').innerHTML = (return_data.count_2 + '/' + return_data.tot);
+
+           };
+           if("risk_score_2" in return_data){
+                document.getElementById('risk-score-2-select').value = return_data.risk_score_2;
+
+           };
+
+           if("min_3" in return_data){
+                console.log(return_data.min_3)
+                document.getElementById('min-3-text-input').value = return_data.min_3;
+
+           };
+           if("max_3" in return_data){
+                console.log(return_data.max_3)
+                document.getElementById('max-3-text-input').value = return_data.max_3;
+
+           };
+           if("count_3" in return_data){
+                console.log(return_data.count_3)
+                document.getElementById('num-in-range-3').innerHTML = (return_data.count_3 + '/' + return_data.tot);
+
+           };
+           if("risk_score_3" in return_data){
+                document.getElementById('risk-score-3-select').value = return_data.risk_score_3;
+
+           };
+
+           if("min_4" in return_data){
+                console.log(return_data.min_4)
+                document.getElementById('min-4-text-input').value = return_data.min_4;
+
+           };
+           if("max_4" in return_data){
+                console.log(return_data.max_4)
+                document.getElementById('max-4-text-input').value = return_data.max_4;
+
+           };
+           if("count_4" in return_data){
+                console.log(return_data.count_4)
+                document.getElementById('num-in-range-4').innerHTML = (return_data.count_4 + '/' + return_data.tot);
+
+           };
+           if("risk_score_4" in return_data){
+                document.getElementById('risk-score-4-select').value = return_data.risk_score_4;
+
+           };
+
+           if("min_5" in return_data){
+                console.log(return_data.min_5)
+                document.getElementById('min-5-text-input').value = return_data.min_5;
+
+           };
+           if("max_5" in return_data){
+                console.log(return_data.max_5)
+                document.getElementById('max-5-text-input').value = return_data.max_5;
+
+           };
+           if("count_5" in return_data){
+                console.log(return_data.count_5)
+                document.getElementById('num-in-range-5').innerHTML = (return_data.count_5 + '/' + return_data.tot);
+
+           };
+           if("risk_score_5" in return_data){
+                document.getElementById('risk-score-5-select').value = return_data.risk_score_5;
+
+           };
+
+            console.log(return_data.num_classes);
+
+        });
+};
+
+function NumRiskClassesChange() {
+
+        var num_classes_int = $("#num-risk-classes-select").val();
+        console.log(num_classes_int)
+        var inputs = document.querySelectorAll('.risk-class-row');
+        for (var j = 0; j< inputs.length; j++) {
+            console.log(inputs[j])
+            var input_element = document.getElementById(inputs[j].id).style.display = "none";
+        };
+
+        criteria_data = document.getElementById('edit-risk-score-modal').value;
+        criteria_name = criteria_data[0]
+        criteria_id = criteria_data[1]
+        console.log(criteria_name)
+        console.log(criteria_id)
+
+        var data = new FormData();
+        data.append("num_classes",num_classes_int);
+        data.append("criteria_name",criteria_name);
+        data.append("criteria_id",criteria_id);
+
+
+        var populate_modal = ajax_update_database_with_file("num-class-change-populate-risk-score-modal", data); //Submitting the data through the ajax function, see main.js for the helper function.
         populate_modal.done(function(return_data){ //Reset the form once the data is added successfully
 
            if("num_classes" in return_data){
@@ -896,7 +1242,8 @@ function validateFormInputs(){}
 function executeSpatialJoins(){
 
         var inputs = document.querySelectorAll('.checkbox-input');
-        console.log(inputs);
+        var risk_analysis_name = document.getElementById('risk-analysis-name').value;
+        console.log(risk_analysis_name);
         var zone_id = $('#zoneid-field-select').val()
         var data = new FormData();
         var file_names = [];
@@ -942,8 +1289,6 @@ function executeSpatialJoins(){
                         var criteria_type_id = document.getElementById(n+"-lof-or-cof-select-"+(j+1));
 
                         console.log(field_name_id.value);
-
-
 
                         criteria_name_array.push(n+(j+1)+'_'+criteria_name_id.value);
                         field_name_array.push(n+(j+1)+'_'+field_name_id.value);
@@ -996,7 +1341,7 @@ function executeSpatialJoins(){
 //        console.log(aggregation_method_array);
 //        console.log(criteria_type_array);
         console.log(json_criteria_input_array);
-
+        data.append("risk_analysis_name",risk_analysis_name);
         data.append("zone_id",zone_id);
         data.append("file_names",json_file_names_array);
         data.append("criteria_names",json_criteria_name_array);
@@ -1227,13 +1572,550 @@ function file_upload_process(data,field_list) {
         });
 };
 
+function resetZoneMap(geojson_zone_layer,extent){
+
+    var map = L.map('zone-map').setView([44.75, -93.75], 12);
+
+    var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri 2012 <a href="https://leaflet-extras.github.io/leaflet-providers/preview/">See Here</a>'
+    });
+
+    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri 2012 <a href="https://leaflet-extras.github.io/leaflet-providers/preview/">See Here</a>'
+    });
+
+    var Stamen_TonerHybrid = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-hybrid/{z}/{x}/{y}{r}.{ext}', {
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+        minZoom: 0,
+        maxZoom: 20,
+        ext: 'png'
+    });
+
+
+    var baseLayers = {
+        "ESRI_World_Imagery": Esri_WorldImagery,
+        "ESRI_World_Street_Map": Esri_WorldStreetMap,
+    };
 
 
 
+    var layer_control = L.control.layers(baseLayers).addTo(map);
+    baseLayers.ESRI_World_Imagery.addTo(map);
+
+    layer_control.addOverlay(Stamen_TonerHybrid, 'Borders and Labels');
+//    Stamen_TonerHybrid.addTo(map);
+
+    var zone_layer = geojson_zone_layer;
+    L.geoJSON(zone_layer, {
+        style: function(feature) {
+            switch (feature.properties.ZoneClass) {
+                case 'Very High': return {color: "#FF0000"};
+                case 'High':   return {color: "#FFA500"};
+                case 'Medium':   return {color: "#FFFF00"};
+                case 'Low':   return {color: "#9ACD32"};
+                case 'Very Low':   return {color: "#008000"};
+            }
+        },
+        onEachFeature: function (feature, layer) {
+            feature.properties.bounds_calculated = layer.getBounds()
+//            layer.bindPopup(feature.properties.ZoneID + "</br>" + feature.properties.ZoneClass);
+            layer.on('click', function (e) {
+                zone_bounds = feature.properties.bounds_calculated;
+                document.getElementById('map-tab-toggle').value = zone_bounds;
+                $("#piechart-modal").modal('show');
+                getZoneChart(feature.properties.ZoneID);
+                miniZoneMap(zone_bounds);
+
+        });
+
+
+
+//                    };
+
+
+
+
+//        });
+        }
+    }).addTo(map);
+    map.fitBounds(extent)
+    map.invalidateSize()
+};
+
+
+
+//function initMiniZoneMap () {
+//    var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+//        attribution: 'Tiles &copy; Esri 2012 <a href="https://leaflet-extras.github.io/leaflet-providers/preview/">See Here</a>'
+//    });
+//
+//    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+//	attribution: 'Tiles &copy; Esri 2012 <a href="https://leaflet-extras.github.io/leaflet-providers/preview/">See Here</a>'
+//    });
+//
+//    var Stamen_TonerHybrid = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-hybrid/{z}/{x}/{y}{r}.{ext}', {
+//        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+//        subdomains: 'abcd',
+//        minZoom: 0,
+//        maxZoom: 20,
+//        ext: 'png'
+//    });
+//
+//    var baseLayers = {
+//        "ESRI_World_Imagery": Esri_WorldImagery,
+//        "ESRI_World_Street_Map": Esri_WorldStreetMap,
+//    };
+//
+//    var layer_control = L.control.layers(baseLayers).addTo(minimap);
+//    baseLayers.ESRI_World_Imagery.addTo(minimap);
+//
+//    layer_control.addOverlay(Stamen_TonerHybrid, 'Borders and Labels');
+//};
+
+function miniZoneMap(extent){
+
+    var data = new FormData();
+    var zone_id_s = document.getElementById('zone-id-label').innerText;
+    n = zone_id_s.lastIndexOf(":")+2
+    zone_id = zone_id_s.slice(n);
+    data.append("zone_id",zone_id);
+
+    ol_map = TETHYS_MAP_VIEW.getMap();
+    previous_size = [720,720];
+    ol_map.setSize(previous_size); // Resize the map to fit the div
+    console.log(previous_size);
+    //Remove existing layers from map
+    var layers = ol_map.getLayers();
+    layers.forEach(function(layer){
+        ol_map.removeLayer(layer);
+    });
+    ol_map.renderSync(); // Update the map
+
+    var basemap = new ol.layer.Tile({
+                source: new ol.source.OSM(),
+            });
+            // Add streets layer to map
+    ol_map = TETHYS_MAP_VIEW.getMap();
+
+//    ol_map.setView(new ol.View({
+//        projection: 'EPSG:4326',
+//        center: [extent],
+//        zoom: 12,
+//      }))
+//    ol_map.addLayer(basemap);
+    var get_mini_geojson_features = ajax_update_database_with_file("get-mini-geojson-features",data); //Submitting the data through the ajax function, see main.js for the helper function.
+        get_mini_geojson_features.done(function(return_data){ //Reset the form once the data is added successfully
+            if("GeoJSON_Features" in return_data){
+                geojson_zone_layer = return_data.GeoJSON_Features;
+
+                var geojson_object = {
+                    'type': 'FeatureCollection',
+                    'crs': {
+                        'type': 'name',
+                        'properties': {
+                            'name': 'EPSG:3857'
+                        }
+                    },
+                    'features': geojson_zone_layer
+                };
+                var zone_style = [
+                    new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: 'red',
+                            width: 6,
+                            zIndex: 0
+                        })
+                    }),
+                    new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: 'black',
+                            width: 5,
+                            zIndex: 1
+                        })
+                    })
+                ];
+                var these_features = new ol.format.GeoJSON().readFeatures(geojson_object);
+                var zone_vectorSource = new ol.source.Vector({
+                    features: these_features
+                });
+                var zone_layer = new ol.layer.Vector({
+                    name: 'Zone Boundary',
+                    source: zone_vectorSource,
+                    style: zone_style,
+                });
+                var basemap = new ol.layer.Tile({
+                    source: new ol.source.OSM(),
+                });
+
+                // Add streets layer to map
+
+                ol_map.addLayer(basemap);
+            //
+                ol_map.addLayer(zone_layer);
+//                TETHYS_MAP_VIEW.zoomToExtent([44.75, -93.75])
+                ol_map.renderSync();
+                ol_map = TETHYS_MAP_VIEW.getMap();
+            };
+        });
+
+
+//            var low_style = [
+//                new ol.style.Style({
+//                    stroke: new ol.style.Stroke({
+//                        color: '#A9A9A9',
+//                        width: 6,
+//                        zIndex: 0
+//                    })
+//                }),
+//                new ol.style.Style({
+//                    stroke: new ol.style.Stroke({
+//                        color: 'yellow',
+//                        width: 5,
+//                        zIndex: 1
+//                    })
+//                })
+//            ];
+//            var med_style = [
+//                new ol.style.Style({
+//                    stroke: new ol.style.Stroke({
+//                        color: '#A9A9A9',
+//                        width: 6,
+//                        zIndex: 0
+//                    })
+//                }),
+//                new ol.style.Style({
+//                    stroke: new ol.style.Stroke({
+//                        color: 'orange',
+//                        width: 5,
+//                        zIndex: 1
+//                    })
+//                })
+//            ];
+//            var high_style = [
+//                new ol.style.Style({
+//                    stroke: new ol.style.Stroke({
+//                        color: '#A9A9A9',
+//                        width: 6,
+//                        zIndex: 0
+//                    })
+//                }),
+//                new ol.style.Style({
+//                    stroke: new ol.style.Stroke({
+//                        color: 'red',
+//                        width: 5,
+//                        zIndex: 1
+//                    })
+//                })
+//            ];
+
+            // Create a geojson object holding street features
+
+
+    // Convert from geojson to openlayers collection
+
+//
+//    // Divide geojson feature collection by Max_Depth
+////            var none_features = []
+////            var low_features = []
+////            var med_features = []
+////            var high_features = []
+////            these_features.forEach(function(feature){
+////                if (feature.get('Max_Depth')>1.0){
+////                    high_features.push(feature);
+////                } else if (feature.get('Max_Depth')>0.5){
+////                    med_features.push(feature);
+////                } else if (feature.get('Max_Depth')>(1/3)){
+////                    low_features.push(feature);
+////                } else {
+////                    none_features.push(feature);
+////                }
+////            });
+//
+//    // Create a new ol source and assign street features
+
+////            var low_vectorSource = new ol.source.Vector({
+////                features: low_features
+////            });
+////            var med_vectorSource = new ol.source.Vector({
+////                features: med_features
+////            });
+////            var high_vectorSource = new ol.source.Vector({
+////                features: high_features
+////            });
+//
+//    // Create a new modifiable layer and assign source and style
+
+//            var low_streetLayer = new ol.layer.Vector({
+//                name: 'Low Risk',
+//                source: low_vectorSource,
+//                style: low_style,
+//            });
+//            var med_streetLayer = new ol.layer.Vector({
+//                name: 'Medium Risk',
+//                source: med_vectorSource,
+//                style: med_style,
+//            });
+//            var high_streetLayer = new ol.layer.Vector({
+//                name: 'High Risk',
+//                source: high_vectorSource,
+//                style: high_style,
+//            });
+
+//            ol_map.addLayer(low_streetLayer);
+//            ol_map.addLayer(med_streetLayer);
+//            ol_map.addLayer(high_streetLayer);
+
+
+//    var zone_layer = geojson_zone_layer;
+//    L.geoJSON(zone_layer, {
+//        style: function(feature) {
+//            switch (feature.properties.ZoneID) {
+//                case zone_id: return {color: "#FF0000"};
+//                case 'High':   return {color: "#FFA500"};
+//                case 'Medium':   return {color: "#FFFF00"};
+//                case 'Low':   return {color: "#9ACD32"};
+//                case 'Very Low':   return {color: "#008000"};
+//            }
+//        },
+//
+//    }).addTo(minimap);
+//    minimap.fitBounds(extent)
+
+
+};
+
+
+function getZoneChart(zone_id){
+
+
+    document.getElementById('zone-id-label').innerText = "Zone ID: "+zone_id
+    var num_zones = document.getElementById('num-zones-in-bar').value
+    var data = new FormData();
+        data.append("zone_id",zone_id);
+        data.append("num_zones",num_zones);
+
+    var get_zone_charts = ajax_update_database_with_file("get-zone-charts",data); //Submitting the data through the ajax function, see main.js for the helper function.
+        get_zone_charts.done(function(return_data){ //Reset the form once the data is added successfully
+            showTopBarChart();
+            if("lof_name_list" in return_data){
+
+
+                var lofpiechartdata = [{
+                  type: "pie",
+                  values: return_data.lof_score_list,
+                  labels: return_data.lof_name_list,
+                  textinfo: "label+percent",
+                  legend: true,
+//                  insidetextorientation: "radial"
+                }]
+
+
+                var lofbardata = [{
+                    x: return_data.lof_name_list,
+                    y: return_data.lof_percentile_list,
+                    type: 'bar'
+                }];
+
+                var lofpielayout = {
+                  title: "LOF Criteria Distribution",
+                  width: 500,
+                  height: 500,
+//                  domain: [0,0.5],
+                }
+
+                var lofbarlayout = {
+                  title: "Percentile Range of Criteria Relative to Other Zones",
+                  yaxis: {range: [0,100]},
+                  width: 500,
+                  height: 500,
+                }
+
+                Plotly.newPlot('lof-zone-piechart', lofpiechartdata, lofpielayout)
+                Plotly.newPlot('lof-zone-barchart', lofbardata, lofbarlayout)
+
+            };
+            if("cof_name_list" in return_data){
+                console.log(return_data.cof_name_list)
+                var cofpiechartdata = [{
+                  type: "pie",
+                  values: return_data.cof_score_list,
+                  labels: return_data.cof_name_list,
+                  textinfo: "label+percent",
+                  legend: true,
+//                  insidetextorientation: "radial"
+                }];
+
+                var cofpielayout = {
+                  title: "COF Criteria Distribution",
+                  width: 500,
+                  height: 500,
+//                  domain: [0,0.5],
+                }
+
+                var cofbardata = [{
+                    x: return_data.cof_name_list,
+                    y: return_data.cof_percentile_list,
+                    type: 'bar'
+                }];
+
+
+
+                var cofbarlayout = {
+                  title: "Percentile Range of Criteria Relative to Other Zones",
+                  yaxis: {range: [0,100]},
+                  width: 500,
+                  height: 500,
+                }
+
+                Plotly.newPlot('cof-zone-piechart', cofpiechartdata, cofpielayout)
+                Plotly.newPlot('cof-zone-barchart', cofbardata, cofbarlayout)
+
+
+            };
+
+            if("top_cof_vals" in return_data){
+                console.log(return_data.top_cof_vals)
+                console.log(return_data.top_cof_zones)
+
+                var topcofbardata = [{
+                    x: return_data.top_cof_vals,
+                    y: return_data.top_cof_zones,
+                    type: 'bar',
+                    orientation: 'h',
+                    transforms: [{
+                        type:'sort',
+                        target:'x',
+                        order: 'ascending'
+                    }],
+                    marker:{
+                        color: return_data.cof_color_list,
+                        line: {
+                            color: "black",
+                            width: 1
+                        }
+                    }
+
+                }];
+
+
+
+                var topcofbarlayout = {
+                  title: "Top Zones",
+                  width: 500,
+                  height: 500,
+                }
+
+                Plotly.newPlot('top-cof-zone-barchart', topcofbardata, topcofbarlayout)
+
+
+            };
+            if("top_tot_vals" in return_data){
+                console.log(return_data.top_tot_vals)
+                console.log(return_data.top_tot_zones)
+
+                var toptotbardata = [{
+                    x: return_data.top_tot_vals,
+                    y: return_data.top_tot_zones,
+                    type: 'bar',
+                    orientation: 'h',
+                    transforms: [{
+                        type:'sort',
+                        target:'x',
+                        order: 'ascending'
+                    }],
+                    marker:{
+                        color: return_data.tot_color_list,
+                        line: {
+                            color: "black",
+                            width: 1
+                        }
+                    }
+
+                }];
+
+
+
+                var toptotbarlayout = {
+                  title: "Top Zones",
+                  width: 500,
+                  height: 500,
+                }
+
+                Plotly.newPlot('top-tot-zone-barchart', toptotbardata, toptotbarlayout)
+
+
+            };
+            if("top_lof_vals" in return_data){
+                console.log(return_data.top_lof_vals)
+                console.log(return_data.top_lof_zones)
+
+                var toplofbardata = [{
+                    x: return_data.top_lof_vals,
+                    y: return_data.top_lof_zones,
+                    type: 'bar',
+                    orientation: 'h',
+                    transforms: [{
+                        type:'sort',
+                        target:'x',
+                        order: 'ascending'
+                    }],
+                    marker:{
+                        color: return_data.lof_color_list,
+                        line: {
+                            color: "black",
+                            width: 1
+                        }
+                    }
+
+                }];
+
+
+
+                var toplofbarlayout = {
+                  title: "Top Zones",
+                  width: 500,
+                  height: 500,
+                }
+
+                Plotly.newPlot('top-lof-zone-barchart', toplofbardata, toplofbarlayout)
+
+
+            };
+
+
+    });
+
+
+}
 
 $(function() {
     uncheckAll();
     hideCustomFields();
+    loadZoneClassTableFromDB();
+    ol_map = TETHYS_MAP_VIEW.getMap();
+    previous_size = ol_map.getSize(); // Retrieve map size
+//    miniZoneMap()
+
+//    $.ajax({
+//        url: 'datatable-ajax',
+//        method: 'GET',
+//        data: {
+//            'searching': false, //example data to pass to the controller
+//        },
+//        success: function(data) {
+//            //add DataTable  to page
+//           $("#datatable_div").html(data);
+//
+//            //Initialize DataTable
+//           $("#datatable_div").find('.data_table_gizmo_view').DataTable();
+//         }
+//    });
+
+
+
+
+
 
     const zone_dropdown = document.querySelectorAll('.zone-classifier-dropdown');
     zone_dropdown.forEach(function(item) {
@@ -1251,8 +2133,20 @@ $(function() {
       });
     });
 
+    $('#top-barchart-select').change(function(){
+        showTopBarChart();
+    });
+    $('#num-zones-in-bar').change(function(){
+        var zone_id_s = document.getElementById('zone-id-label').innerText;
+        n = zone_id_s.lastIndexOf(":")+2
+        zone_id = zone_id_s.slice(n);
+        console.log(zone_id);
+        showTopBarChart();
+        getZoneChart(zone_id);
 
+    });
 
+    var num_zones = document.getElementById('num-zones-in-bar').value
 
 
 
@@ -1262,7 +2156,7 @@ $(function() {
     });
 
     $('#num-risk-classes-select').change(function(){
-        UpdateNumRiskClasses();
+        NumRiskClassesChange();
     });
 
     $('#min-1-text-input').change(function(){

@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from tethys_sdk.permissions import login_required
-from tethys_sdk.gizmos import Button
+from tethys_sdk.gizmos import (Button, MapView, TextInput, DatePicker,
+                               SelectInput, DataTableView, MVDraw, MVView,
+                               MVLayer)
+
 from .app import *
 from .model import *
 
@@ -145,6 +148,32 @@ def aggregated_risk(request):
         }
     )
 
+    view_center = [-93.3, 44.75]
+
+    view_options = MVView(
+        projection='EPSG:4326',
+        center=view_center,
+        zoom=12.5,
+        maxZoom=18,
+        minZoom=2
+    )
+
+    zone_map = MapView(
+        height='150',
+        width='200',
+        # layers=[],
+        basemap=[
+            'OpenStreetMap',
+            # 'CartoDB',
+            # {'CartoDB': {'style': 'dark'}},
+            # 'Stamen',
+            'ESRI'
+        ],
+        view=view_options,
+        # legend=True
+
+    )
+
     # initialize session
     Session = Hpp.get_persistent_store_database('primary_db', as_sessionmaker=True)
     session = Session()
@@ -163,7 +192,7 @@ def aggregated_risk(request):
             'data-toggle': 'tooltip',
             'data-placement': 'top',
             'title': 'Previous',
-            'onclick':'hidePageTwoShowOne()'
+            'onclick':'cyclePagesBackward()'
         }
     )
 
@@ -173,7 +202,8 @@ def aggregated_risk(request):
         attributes={
             'data-toggle': 'tooltip',
             'data-placement': 'top',
-            'title': 'Next'
+            'title': 'Next',
+            'onclick': 'cyclePagesForward()'
         }
     )
 
@@ -199,13 +229,27 @@ def aggregated_risk(request):
         }
     )
 
-    context = {'data_submit_button': data_submit_button,
+
+    # datatable_default = DataTableView(column_names=('Name', 'Age', 'Job'),
+    #                                       rows=[('Bill', 30, 'contractor'),
+    #                                             ('Fred', 18, 'programmer'),
+    #                                             ('Bob', 26, 'boss')],
+    #                                       searching=True,
+    #                                       orderClasses=False,
+    #                                       lengthMenu=[[10, 25, 50, -1], [10, 25, 50, "All"]],
+    #                                       )
+
+
+    context = {
+               'data_submit_button': data_submit_button,
+               # 'datatable_options': datatable_default,
                'add_custom_file_button': add_custom_file_button,
                'apply_risk_scores_button': apply_risk_scores_button,
                'initial_page': 0,
                'previous_button': previous_button,
                'classify_zones_button': classify_zones_button,
                'next_button': next_button,
+               'zone_map': zone_map,
                'criteria_list': criteria_list,
 
     }

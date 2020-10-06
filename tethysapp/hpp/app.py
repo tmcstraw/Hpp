@@ -70,6 +70,27 @@ class Hpp(TethysAppBase):
                 url='hpp/aggregated-risk/populate-risk-score-modal',
                 controller='hpp.ajax_controllers.populate_risk_score_modal'
             ),
+            UrlMap(name='datatable-ajax',
+                url='hpp/aggregated-risk/datatable-ajax',
+                controller='hpp.ajax_controllers.datatable_ajax'
+            ),
+            UrlMap(name='get-mini-geojson-features',
+                url='hpp/aggregated-risk/get-mini-geojson-features',
+                controller='hpp.ajax_controllers.get_mini_geojson_features'
+            ),
+
+            UrlMap(name='get-zone-charts',
+                url='hpp/aggregated-risk/get-zone-charts',
+                controller='hpp.ajax_controllers.get_zone_charts'
+            ),
+            UrlMap(name='num-class-change-populate-risk-score-modal',
+                   url='hpp/aggregated-risk/num-class-change-populate-risk-score-modal',
+                   controller='hpp.ajax_controllers.num_class_change_populate_risk_score_modal'
+            ),
+            UrlMap(name='get-zone-classes-from-db',
+                   url='hpp/aggregated-risk/get-zone-classes-from-db',
+                   controller='hpp.ajax_controllers.get_zone_classes_from_db'
+            ),
             UrlMap(name='update-max-risk-values',
                    url='hpp/aggregated-risk/update-max-risk-values',
                    controller='hpp.ajax_controllers.update_max_risk_values'

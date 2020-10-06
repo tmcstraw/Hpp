@@ -1,6 +1,6 @@
 import json
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, Float, String
+from sqlalchemy import Column, Integer, Float, String, ARRAY
 from sqlalchemy.orm import sessionmaker
 from .model import *
 
@@ -17,6 +17,7 @@ class Criteria(Base):
     __tablename__ = 'criteria'
 
     # Columns
+    risk_analysis_name = Column(String)
     id = Column(Integer, primary_key=True)
     file_name = Column(String)
     criteria_name = Column(String)
@@ -74,6 +75,15 @@ class Zoneclass(Base):
     row5col3 = Column(String)
     row5col4 = Column(String)
     row5col5 = Column(String)
+
+class ZoneRiskResults(Base):
+
+    __tablename__ = 'zone_risk_results'
+
+    # Columns
+    risk_analysis_name = Column(String, primary_key=True)
+    risk_criteria_list = Column(ARRAY(String))
+    risk_scores_list = Column(ARRAY(String))
 
 def init_primary_db(engine, first_time):
     """

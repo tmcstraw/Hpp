@@ -15,3 +15,4 @@
 #     context = {}
 #
 #     return render(request, 'hpp/template.html', context)
+USER_DIR = "/Users/tmcstraw/tethysdev/tethysapp-hpp/tethysapp/hpp/workspaces/user_workspaces/"
